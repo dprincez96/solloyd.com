@@ -53,7 +53,7 @@ export default {
       {file:'singapore-moon-1.JPG',    credit:'Featured by Sony Alpha HQ'},
     ];
 
-    const PORTRAITS = [...range('Portraits','JPG',15),...range('Portraits','jpg',15)];
+    const PORTRAITS = range('portraits','JPG',15);
     const WALLPAPERS = [...range('phone-wallpaper','JPG',8),...range('phone-wallpaper','jpg',8)];
 
     // ── Routing ──────────────────────────────────────────────────────────
