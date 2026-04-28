@@ -8,38 +8,40 @@ export default {
       return Array.from({length:n}, (_, i) => `${prefix}-${i+1}.${ext}`);
     }
 
+    function dualRange(prefix,n){return[...range(prefix,'JPG',n),...range(prefix,'jpg',n)];}
+
     const COUNTRIES = [
       { slug:'japan', name:'Japan', flag:'🇯🇵', cover:'japan-kyoto-1.JPG',
         subs:[
-          {slug:'kyoto',    name:'Kyoto',    tags:'Culture · Temples · Streets',      cover:'japan-kyoto-1.JPG',           photos:range('japan-kyoto','JPG',30)},
-          {slug:'hokkaido', name:'Hokkaido', tags:'Winter · Snow · Long Exposure',    cover:'japan-hokkaido-winter-1.JPG', photos:range('japan-hokkaido-winter','JPG',30)},
-          {slug:'mtfuji',   name:'Mt Fuji',  tags:'Landscape · Iconic · Sunrise',     cover:'japan-mtfuji-1.JPG',          photos:range('japan-mtfuji','JPG',30)},
+          {slug:'kyoto',    name:'Kyoto',    tags:'Culture · Temples · Streets',      cover:'japan-kyoto-1.JPG',           photos:dualRange('japan-kyoto',30)},
+          {slug:'hokkaido', name:'Hokkaido', tags:'Winter · Snow · Long Exposure',    cover:'japan-hokkaido-winter-1.JPG', photos:dualRange('japan-hokkaido-winter',30)},
+          {slug:'mtfuji',   name:'Mt Fuji',  tags:'Landscape · Iconic · Sunrise',     cover:'japan-mtfuji-1.JPG',          photos:dualRange('japan-mtfuji',30)},
         ]
       },
       { slug:'singapore', name:'Singapore', flag:'🇸🇬', cover:'singapore-moon-1.JPG',
         subs:[
-          {slug:'moon',         name:'Moon & Sunrise', tags:'Sun/Moon · Golden Hour · Sky',   cover:'singapore-moon-1.JPG',    photos:[...range('singapore-moon','JPG',30),...range('singapore-sunrise','JPG',10),...range('singapore-sunrise','.jpg',5)]},
-          {slug:'architecture', name:'Architecture',   tags:'MBS · Chinatown · Streets',      cover:'singapore-mbs-1.JPG',     photos:[...range('singapore-mbs','JPG',30),...range('singapore-architecture','JPG',30),...range('singapore-chinatown','JPG',30)]},
+          {slug:'moon',         name:'Sun & Moon of Singapore', tags:'Sun/Moon · Golden Hour · Sky',   cover:'singapore-moon-1.JPG',    photos:[...dualRange('singapore-moon',30),...dualRange('singapore-sunrise',30)]},
+          {slug:'architecture', name:'Architecture',   tags:'MBS · Chinatown · Streets',      cover:'singapore-mbs-1.JPG',     photos:[...dualRange('singapore-mbs',30),...dualRange('singapore-architecture',30),...dualRange('singapore-chinatown',30)]},
         ]
       },
       { slug:'hongkong', name:'Hong Kong', flag:'🇭🇰', cover:'hongkong-1.JPG',
-        photos:range('hongkong','JPG',30)
+        photos:dualRange('hongkong',30)
       },
       { slug:'thailand', name:'Thailand', flag:'🇹🇭', cover:'thailand-bangkok-1.JPG',
-        photos:range('thailand-bangkok','JPG',30)
+        photos:dualRange('thailand-bangkok',30)
       },
       { slug:'malaysia', name:'Malaysia', flag:'🇲🇾', cover:'malaysia-penang-1.JPG',
         subs:[
-          {slug:'penang',      name:'Penang',       tags:'Streets · Heritage · Culture',  cover:'malaysia-penang-1.JPG',      photos:range('malaysia-penang','JPG',30)},
-          {slug:'milkyway',    name:'Milky Way',    tags:'Astrophotography · Night Sky',  cover:'malaysia-milkyway-1.JPG',    photos:range('malaysia-milkyway','JPG',30)},
-          {slug:'kualalumpur', name:'Kuala Lumpur', tags:'Cityscape · Architecture',      cover:'malaysia-kualalumpur-1.JPG', photos:range('malaysia-kualalumpur','JPG',30)},
+          {slug:'penang',      name:'Penang',       tags:'Streets · Heritage · Culture',  cover:'malaysia-penang-1.JPG',      photos:dualRange('malaysia-penang',30)},
+          {slug:'milkyway',    name:'Milky Way',    tags:'Astrophotography · Night Sky',  cover:'malaysia-milkyway-1.JPG',    photos:dualRange('malaysia-milkyway',30)},
+          {slug:'kualalumpur', name:'Kuala Lumpur', tags:'Cityscape · Architecture',      cover:'malaysia-kualalumpur-1.JPG', photos:dualRange('malaysia-kualalumpur',30)},
         ]
       },
       { slug:'vietnam', name:'Vietnam', flag:'🇻🇳', cover:'vietnam-sapa-1.JPG',
         subs:[
-          {slug:'sapa',     name:'Sapa',      tags:'Rice Terraces · Nature · Landscape', cover:'vietnam-sapa-1.JPG',     photos:range('vietnam-sapa','JPG',30)},
-          {slug:'hanoi',    name:'Hanoi',     tags:'Culture · Streets · Architecture',   cover:'vietnam-hanoi-1.JPG',    photos:range('vietnam-hanoi','JPG',30)},
-          {slug:'ninhbinh', name:'Ninh Binh', tags:'Karst Mountains · River · Boats',    cover:'vietnam-ninhbinh-1.JPG', photos:range('vietnam-ninhbinh','JPG',30)},
+          {slug:'sapa',     name:'Sapa',      tags:'Rice Terraces · Nature · Landscape', cover:'vietnam-sapa-1.JPG',     photos:dualRange('vietnam-sapa',30)},
+          {slug:'hanoi',    name:'Hanoi',     tags:'Culture · Streets · Architecture',   cover:'vietnam-hanoi-1.JPG',    photos:dualRange('vietnam-hanoi',30)},
+          {slug:'ninhbinh', name:'Ninh Binh', tags:'Karst Mountains · River · Boats',    cover:'vietnam-ninhbinh-1.JPG', photos:dualRange('vietnam-ninhbinh',30)},
         ]
       },
     ];
@@ -51,8 +53,8 @@ export default {
       {file:'singapore-moon-1.JPG',    credit:'Featured by Sony Alpha HQ'},
     ];
 
-    const PORTRAITS = range('portrait','JPG',30);
-    const WALLPAPERS = range('phone-wallpaper','JPG',8);
+    const PORTRAITS = [...range('Portraits','JPG',15),...range('Portraits','jpg',15),...range('portrait','JPG',15),...range('portrait','jpg',15)];
+    const WALLPAPERS = [...range('phone-wallpaper','JPG',12),...range('phone-wallpaper','jpg',12)];
 
     // ── Routing ──────────────────────────────────────────────────────────
     if (path.startsWith('/portfolio')) {
@@ -225,7 +227,7 @@ function mainPage(R2, COUNTRIES, FEATURED, PORTRAITS, WALLPAPERS) {
     </div>`).join('');
 
   const wallpaperItems = WALLPAPERS.map(f=>`
-    <div class="wp-item">
+    <div class="wp-item" data-wp-src="${R2}/${f}">
       <div class="phone-shell">
         <div class="phone-island"></div>
         <div class="phone-screen" style="background-image:url('${R2}/${f}');background-size:cover;background-position:center;"></div>
@@ -391,7 +393,7 @@ function mainPage(R2, COUNTRIES, FEATURED, PORTRAITS, WALLPAPERS) {
 
     /* ABOUT */
     .about-section{display:grid;grid-template-columns:1fr 1fr;border-top:1px solid var(--border);margin:0 52px;background:rgba(240,235,226,.7);backdrop-filter:blur(8px);transition:background .6s;}
-    .about-text{padding:80px 64px 80px 0;border-right:1px solid var(--border);}
+    .about-text{padding:80px 64px 80px 64px;border-right:1px solid var(--border);}
     .about-text h2{font-family:'Cormorant Garamond',serif;font-size:clamp(2rem,3.2vw,2.9rem);font-weight:300;color:var(--charcoal);margin-bottom:36px;line-height:1.2;transition:color .6s;}
     .about-text h2 em{font-style:italic;color:var(--accent-dark);}
     body.scroll-mid .about-text h2 em{color:var(--accent);}
@@ -474,7 +476,7 @@ function mainPage(R2, COUNTRIES, FEATURED, PORTRAITS, WALLPAPERS) {
       .portrait-carousel{padding:24px 20px;gap:12px;} .portrait-item{flex:0 0 65vw;}
       .gear-intro,.gear-categories{margin:0 20px;} .gear-categories{grid-template-columns:1fr;gap:10px;}
       .about-section{margin:0 20px;grid-template-columns:1fr;}
-      .about-text{padding:44px 28px;border-right:none;border-bottom:1px solid var(--border);}
+      .about-text{padding:44px 28px 44px 28px;border-right:none;border-bottom:1px solid var(--border);}
       .about-visual{padding:44px 28px;}
       #contact{padding:56px 24px;} .contact-email{font-size:1.4rem;padding:16px 20px;}
       .insta-section{padding:56px 24px;} .insta-grid{grid-template-columns:repeat(3,1fr);gap:6px;}
@@ -720,6 +722,12 @@ function mainPage(R2, COUNTRIES, FEATURED, PORTRAITS, WALLPAPERS) {
       const img = new Image();
       img.onerror = () => { el.closest('.portrait-item').style.display='none'; };
       img.src = src;
+    });
+    // Wallpaper carousel — hide items with missing images
+    document.querySelectorAll('.wp-item[data-wp-src]').forEach(el=>{
+      const img = new Image();
+      img.onerror = () => { el.style.display='none'; };
+      img.src = el.getAttribute('data-wp-src');
     });
 
     // Image protection
