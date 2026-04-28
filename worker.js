@@ -66,19 +66,8 @@ export default {
     .btn-dark:hover { background:var(--accent); }
     .btn-outline { background:transparent;color:var(--charcoal);border:1px solid var(--border-strong);padding:13px 28px;text-decoration:none;cursor:none;font-family:'DM Mono',monospace;font-size:.63rem;letter-spacing:.18em;text-transform:uppercase;transition:border-color .25s,color .25s; }
     .btn-outline:hover { border-color:var(--accent);color:var(--accent); }
-    .hero-right { flex:1;display:flex;align-items:center;justify-content:center;position:relative;z-index:2;opacity:0;animation:fadeIn 1s .85s forwards; }
-    .wall-scene { position:relative;width:480px;height:400px; }
-    .hframe { position:absolute;box-shadow:0 2px 12px rgba(28,24,20,.18),0 1px 4px rgba(28,24,20,.12),-12px 12px 32px rgba(28,24,20,.35),-22px 22px 56px rgba(28,24,20,.22),-32px 32px 80px rgba(28,24,20,.10);background:#fff;padding:3px; }
-    .hframe-inner { width:100%;height:100%;position:relative;overflow:hidden;background-size:cover;background-position:center; }
-    .hframe-inner::after { content:'';position:absolute;inset:0;border:2.5px solid #fff;pointer-events:none; }
-    .hframe::after { content:'';position:absolute;bottom:-10px;left:10%;width:80%;height:8px;background:radial-gradient(ellipse,rgba(28,24,20,.1) 0%,transparent 70%);border-radius:50%;pointer-events:none; }
-    .hframe::before { content:'';position:absolute;top:-16px;left:50%;transform:translateX(-50%);width:1px;height:16px;background:rgba(100,100,100,.3); }
-    .nail { position:absolute;z-index:5;width:7px;height:7px;background:radial-gradient(circle at 35% 35%,#ccc,#666);border-radius:50%;box-shadow:1px 2px 4px rgba(28,24,20,.3); }
-    .hf-a { width:240px;height:160px;top:60px;left:10px;transform:rotate(-1.6deg); }
-    .hf-b { width:130px;height:195px;top:40px;left:280px;transform:rotate(1.3deg); }
-    .hf-c { width:200px;height:112px;top:250px;left:55px;transform:rotate(.7deg); }
-    .hf-d { width:135px;height:90px;top:270px;left:275px;transform:rotate(-1.1deg); }
-    .nail-a { top:42px;left:128px; } .nail-b { top:22px;left:342px; } .nail-c { top:232px;left:152px; } .nail-d { top:252px;left:339px; }
+    .hero-right { flex:1;align-self:stretch;position:relative;z-index:2;opacity:0;animation:fadeIn 1s .85s forwards;overflow:hidden;min-height:500px; }
+    .hero-photo-full { position:absolute;inset:0;background-size:cover;background-position:center; }
     .stats-band { display:grid;grid-template-columns:repeat(3,1fr);border-top:1px solid var(--border);border-bottom:1px solid var(--border);background:rgba(255,255,255,0.78);backdrop-filter:blur(8px);transition:background .6s ease; }
     .stat { padding:30px 52px;border-right:1px solid var(--border); }
     .stat:last-child { border-right:none; }
@@ -245,10 +234,7 @@ export default {
     @media(max-width:768px){
       nav{padding:16px 20px;} .nav-links{display:none;} .nav-cta{display:none;} .menu-toggle{display:block;} .mobile-menu{display:flex;}
       body{cursor:auto;} .cursor,.cursor-ring{display:none;} a,button{cursor:pointer !important;}
-      .hero{flex-direction:column;padding:100px 24px 56px;gap:40px;} .wall-scene{width:320px;height:270px;}
-      .hf-a{width:165px;height:110px;left:5px;top:50px;} .hf-b{width:90px;height:135px;left:185px;top:35px;}
-      .hf-c{width:140px;height:79px;top:185px;left:40px;} .hf-d{width:95px;height:63px;top:200px;left:195px;}
-      .nail-a{top:32px;left:87px;} .nail-b{top:17px;left:230px;} .nail-c{top:167px;left:110px;} .nail-d{top:182px;left:243px;}
+      .hero{flex-direction:column;padding:100px 24px 56px;gap:0;} .hero-right{min-height:240px;width:100%;margin:0 -24px;width:calc(100% + 48px);}
       .stats-band{grid-template-columns:1fr;} .stat{border-right:none;border-bottom:1px solid var(--border);padding:22px 24px;}
       .country-block{padding:0 24px 44px;} .country-tags{display:none;}
       .grid-japan{grid-template-columns:1fr 1fr;} .cg-3{display:none;}
@@ -312,13 +298,7 @@ export default {
       </div>
     </div>
     <div class="hero-right">
-      <div class="wall-scene">
-        <div class="nail nail-a"></div><div class="nail nail-b"></div><div class="nail nail-c"></div><div class="nail nail-d"></div>
-        <div class="hframe hf-a"><div class="hframe-inner" style="background-image:url('${R2}/featured-1.jpg');background-size:cover;background-position:center;"></div></div>
-        <div class="hframe hf-b"><div class="hframe-inner" style="background-image:url('${R2}/singapore-moon-1.JPG');background-size:cover;background-position:center;"></div></div>
-        <div class="hframe hf-c"><div class="hframe-inner" style="background-image:url('${R2}/japan-mtfuji-1.JPG');background-size:cover;background-position:center;"></div></div>
-        <div class="hframe hf-d"><div class="hframe-inner" style="background-image:url('${R2}/malaysia-milkyway-1.JPG');background-size:cover;background-position:center;"></div></div>
-      </div>
+      <div class="hero-photo-full" style="background-image:url('${R2}/japan-mtfuji-1.JPG');"></div>
     </div>
   </section>
 
