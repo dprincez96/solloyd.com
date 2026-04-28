@@ -19,9 +19,3 @@ export default {
   },
 };
 
-name = "solloyd"
-main = "worker.js"
-compatibility_date = "2024-11-01"
-
-[vars]
-ENVIRONMENT = "production"
