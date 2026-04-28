@@ -5,90 +5,142 @@ export default {
     const R2 = 'https://pub-5039dcb3d175443ea565073c83281975.r2.dev';
 
     function range(prefix, ext, n) {
-      return Array.from({length:n},(_,i)=>`${prefix}-${i+1}.${ext}`);
+      return Array.from({length:n}, (_, i) => `${prefix}-${i+1}.${ext}`);
     }
 
-    const PORTFOLIO = [
-      {slug:'japan-kyoto',name:'Japan — Kyoto',flag:'🇯🇵',tags:'Culture · Temples · Streets',cover:'japan-kyoto-1.JPG',
-       photos:[...range('japan-kyoto','JPG',15)]},
-      {slug:'japan-mtfuji',name:'Japan — Mt Fuji',flag:'🇯🇵',tags:'Landscape · Iconic · Sunrise',cover:'japan-mtfuji-1.JPG',
-       photos:[...range('japan-mtfuji','JPG',10)]},
-      {slug:'japan-hokkaido',name:'Japan — Hokkaido',flag:'🇯🇵',tags:'Winter · Snow · Long Exposure',cover:'japan-hokkaido-winter-1.JPG',
-       photos:[...range('japan-hokkaido-winter','JPG',10)]},
-      {slug:'singapore-moon',name:'Singapore — Moon & Sunrise',flag:'🇸🇬',tags:'Sun/Moon · Golden Hour · Sky',cover:'singapore-moon-1.JPG',
-       photos:[...range('singapore-moon','JPG',8),'singapore-sunrise-1.jpg']},
-      {slug:'singapore-architecture',name:'Singapore — Architecture',flag:'🇸🇬',tags:'MBS · Chinatown · Streets',cover:'singapore-mbs-1.JPG',
-       photos:[...range('singapore-mbs','JPG',5),...range('singapore-architecture','JPG',5),...range('singapore-chinatown','JPG',5)]},
-      {slug:'hongkong',name:'Hong Kong',flag:'🇭🇰',tags:'Culture · Taxis · Streets',cover:'hongkong-1.JPG',
-       photos:[...range('hongkong','JPG',15)]},
-      {slug:'thailand-bangkok',name:'Thailand — Bangkok',flag:'🇹🇭',tags:'Culture · Streets · Temples',cover:'thailand-bangkok-1.JPG',
-       photos:[...range('thailand-bangkok','JPG',12)]},
-      {slug:'malaysia',name:'Malaysia',flag:'🇲🇾',tags:'Penang · KL · Milky Way',cover:'malaysia-penang-1.JPG',
-       photos:[...range('malaysia-penang','JPG',8),...range('malaysia-milkyway','JPG',6),...range('malaysia-kualalumpur','JPG',6)]},
-      {slug:'vietnam',name:'Vietnam',flag:'🇻🇳',tags:'Sapa · Hanoi · Ninh Binh',cover:'vietnam-sapa-1.JPG',
-       photos:[...range('vietnam-sapa','JPG',8),...range('vietnam-hanoi','JPG',6)]},
+    const COUNTRIES = [
+      { slug:'japan', name:'Japan', flag:'🇯🇵', cover:'japan-kyoto-1.JPG',
+        subs:[
+          {slug:'kyoto',    name:'Kyoto',    tags:'Culture · Temples · Streets',      cover:'japan-kyoto-1.JPG',           photos:range('japan-kyoto','JPG',15)},
+          {slug:'hokkaido', name:'Hokkaido', tags:'Winter · Snow · Long Exposure',    cover:'japan-hokkaido-winter-1.JPG', photos:range('japan-hokkaido-winter','JPG',10)},
+          {slug:'mtfuji',   name:'Mt Fuji',  tags:'Landscape · Iconic · Sunrise',     cover:'japan-mtfuji-1.JPG',          photos:range('japan-mtfuji','JPG',10)},
+        ]
+      },
+      { slug:'singapore', name:'Singapore', flag:'🇸🇬', cover:'singapore-moon-1.JPG',
+        subs:[
+          {slug:'moon',         name:'Moon & Sunrise', tags:'Sun/Moon · Golden Hour · Sky', cover:'singapore-moon-1.JPG', photos:[...range('singapore-moon','JPG',8),'singapore-sunrise-1.jpg']},
+          {slug:'architecture', name:'Architecture',   tags:'MBS · Chinatown · Streets',    cover:'singapore-mbs-1.JPG',  photos:[...range('singapore-mbs','JPG',5),...range('singapore-architecture','JPG',5),...range('singapore-chinatown','JPG',5)]},
+        ]
+      },
+      { slug:'hongkong', name:'Hong Kong', flag:'🇭🇰', cover:'hongkong-1.JPG',
+        photos:range('hongkong','JPG',15)
+      },
+      { slug:'thailand', name:'Thailand', flag:'🇹🇭', cover:'thailand-bangkok-1.JPG',
+        photos:range('thailand-bangkok','JPG',12)
+      },
+      { slug:'malaysia', name:'Malaysia', flag:'🇲🇾', cover:'malaysia-penang-1.JPG',
+        subs:[
+          {slug:'penang',      name:'Penang',       tags:'Streets · Heritage · Culture', cover:'malaysia-penang-1.JPG',      photos:range('malaysia-penang','JPG',8)},
+          {slug:'milkyway',    name:'Milky Way',    tags:'Astrophotography · Night Sky', cover:'malaysia-milkyway-1.JPG',    photos:range('malaysia-milkyway','JPG',6)},
+          {slug:'kualalumpur', name:'Kuala Lumpur', tags:'Cityscape · Architecture',     cover:'malaysia-kualalumpur-1.JPG', photos:range('malaysia-kualalumpur','JPG',6)},
+        ]
+      },
+      { slug:'vietnam', name:'Vietnam', flag:'🇻🇳', cover:'vietnam-sapa-1.JPG',
+        subs:[
+          {slug:'sapa',  name:'Sapa',  tags:'Rice Terraces · Nature · Landscape', cover:'vietnam-sapa-1.JPG',  photos:range('vietnam-sapa','JPG',8)},
+          {slug:'hanoi', name:'Hanoi', tags:'Culture · Streets · Architecture',   cover:'vietnam-hanoi-1.JPG', photos:range('vietnam-hanoi','JPG',6)},
+        ]
+      },
     ];
 
     const FEATURED = [
-      {file:'featured-1.jpg',loc:'Bangkok · Thailand'},
-      {file:'singapore-moon-1.JPG',loc:'Singapore'},
-      {file:'japan-mtfuji-1.JPG',loc:'Mt Fuji · Japan'},
-      {file:'malaysia-milkyway-1.JPG',loc:'Malaysia'},
-      {file:'japan-hokkaido-winter-1.JPG',loc:'Hokkaido · Japan'},
-      {file:'hongkong-1.JPG',loc:'Hong Kong'},
+      {file:'featured-1.jpg',       credit:'Published in Shin Ming Daily News'},
+      {file:'featured-2.JPG',       credit:'Runner-up, Sony World Photography Contest 2025'},
+      {file:'singapore-sunrise-5.JPG', credit:'Featured by Sony Alpha HQ'},
+      {file:'singapore-moon-1.JPG', credit:'Featured by Sony Alpha HQ'},
     ];
 
     const WALLPAPERS = range('phone-wallpaper','JPG',12);
 
-    if (path.startsWith('/portfolio/')) {
-      const slug = path.slice(11);
-      const c = PORTFOLIO.find(x => x.slug === slug);
-      if (!c) return new Response('Not found', {status:404});
-      return new Response(countryPage(R2, c), {headers:{'content-type':'text/html;charset=UTF-8'}});
+    // ── Routing ──────────────────────────────────────────────────────────
+    if (path.startsWith('/portfolio')) {
+      const parts = path.slice('/portfolio'.length).split('/').filter(Boolean);
+
+      if (parts.length === 1) {
+        const country = COUNTRIES.find(c => c.slug === parts[0]);
+        if (!country) return new Response('Not found', {status:404});
+        if (country.subs) return new Response(countryIndexPage(R2, country), {headers:{'content-type':'text/html;charset=UTF-8'}});
+        return new Response(galleryPage(R2, country.flag, country.name, country.name, null, null, country.photos), {headers:{'content-type':'text/html;charset=UTF-8'}});
+      }
+
+      if (parts.length === 2) {
+        const country = COUNTRIES.find(c => c.slug === parts[0]);
+        if (!country || !country.subs) return new Response('Not found', {status:404});
+        const sub = country.subs.find(s => s.slug === parts[1]);
+        if (!sub) return new Response('Not found', {status:404});
+        return new Response(galleryPage(R2, country.flag, sub.name, country.name, `/portfolio/${country.slug}`, country.name, sub.photos), {headers:{'content-type':'text/html;charset=UTF-8'}});
+      }
     }
 
-    return new Response(mainPage(R2, PORTFOLIO, FEATURED, WALLPAPERS), {headers:{'content-type':'text/html;charset=UTF-8'}});
+    return new Response(mainPage(R2, COUNTRIES, FEATURED, WALLPAPERS), {headers:{'content-type':'text/html;charset=UTF-8'}});
   }
 };
 
-/* ─── COUNTRY PAGE ─────────────────────────────────────────────────────── */
-function countryPage(R2, c) {
-return `<!DOCTYPE html>
+/* ─── SHARED CSS ─────────────────────────────────────────────────────────── */
+const SHARED_FONTS = `<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;1,300;1,400&family=DM+Mono:wght@300;400&family=Bebas+Neue&display=swap" rel="stylesheet"/>`;
+const SHARED_CSS = `
+  *,*::before,*::after{box-sizing:border-box;margin:0;padding:0;}
+  :root{--accent:#b5883a;--border:rgba(255,255,255,.08);}
+  body{background:#080808;color:#f0ebe2;font-family:'DM Mono',monospace;font-weight:300;cursor:none;}
+  .cursor{position:fixed;width:8px;height:8px;background:var(--accent);border-radius:50%;pointer-events:none;z-index:9999;transform:translate(-50%,-50%);transition:width .3s,height .3s;}
+  .cursor-ring{position:fixed;width:32px;height:32px;border:1px solid var(--accent);border-radius:50%;pointer-events:none;z-index:9998;transform:translate(-50%,-50%);opacity:.5;transition:width .2s,height .2s;}
+  nav{position:fixed;top:0;left:0;right:0;z-index:200;display:flex;align-items:center;justify-content:space-between;padding:20px 52px;background:rgba(0,0,0,.78);backdrop-filter:blur(14px);border-bottom:1px solid var(--border);}
+  .nav-logo{font-family:'Bebas Neue',sans-serif;font-size:1.35rem;letter-spacing:.14em;color:#fff;text-decoration:none;}
+  .nav-logo span{color:var(--accent);}
+  .nav-back{font-size:.6rem;letter-spacing:.2em;text-transform:uppercase;color:rgba(255,255,255,.5);text-decoration:none;border:1px solid rgba(255,255,255,.15);padding:9px 20px;transition:color .2s,border-color .2s;cursor:none;}
+  .nav-back:hover{color:#fff;border-color:rgba(255,255,255,.4);}
+  .page-header{padding:120px 52px 44px;border-bottom:1px solid var(--border);}
+  .page-eyebrow{font-size:.58rem;letter-spacing:.28em;text-transform:uppercase;color:var(--accent);margin-bottom:12px;}
+  .page-title{font-family:'Cormorant Garamond',serif;font-size:clamp(2.4rem,5vw,4.5rem);font-weight:300;color:#fff;line-height:1.05;margin-bottom:8px;}
+  .page-tags{font-size:.6rem;letter-spacing:.18em;color:rgba(255,255,255,.38);text-transform:uppercase;}
+  footer{border-top:1px solid var(--border);padding:36px 52px;display:flex;align-items:center;justify-content:space-between;margin-top:48px;}
+  .footer-logo{font-family:'Bebas Neue',sans-serif;font-size:1.1rem;letter-spacing:.14em;color:rgba(255,255,255,.3);}
+  .footer-logo span{color:var(--accent);}
+  .footer-back{font-size:.58rem;letter-spacing:.15em;text-transform:uppercase;color:rgba(255,255,255,.35);text-decoration:none;transition:color .2s;cursor:none;}
+  .footer-back:hover{color:var(--accent);}
+  @media(max-width:768px){
+    nav{padding:16px 20px;} .page-header{padding:90px 20px 32px;} footer{padding:28px 20px;flex-direction:column;gap:14px;text-align:center;}
+    body{cursor:auto;} .cursor,.cursor-ring{display:none;} a,button{cursor:pointer!important;}
+  }`;
+const SHARED_JS = `
+  const cursor=document.getElementById('cursor'),ring=document.getElementById('cursorRing');
+  let mx=0,my=0,rx=0,ry=0;
+  document.addEventListener('mousemove',e=>{mx=e.clientX;my=e.clientY;cursor.style.left=mx+'px';cursor.style.top=my+'px';});
+  (function loop(){rx+=(mx-rx)*.12;ry+=(my-ry)*.12;ring.style.left=rx+'px';ring.style.top=ry+'px';requestAnimationFrame(loop);})();
+  document.querySelectorAll('a,button').forEach(el=>{el.addEventListener('mouseenter',()=>{cursor.style.width='18px';cursor.style.height='18px';ring.style.width='50px';ring.style.height='50px';});el.addEventListener('mouseleave',()=>{cursor.style.width='8px';cursor.style.height='8px';ring.style.width='32px';ring.style.height='32px';});});
+  document.addEventListener('contextmenu',e=>{if(e.target.tagName==='IMG')e.preventDefault();});
+  document.addEventListener('dragstart',e=>{if(e.target.tagName==='IMG')e.preventDefault();});`;
+
+/* ─── COUNTRY INDEX PAGE (e.g. /portfolio/japan) ────────────────────────── */
+function countryIndexPage(R2, country) {
+  const cards = country.subs.map(s => `
+    <a href="/portfolio/${country.slug}/${s.slug}" class="sub-card">
+      <div class="sub-card-bg" style="background-image:url('${R2}/${s.cover}');"></div>
+      <div class="sub-card-overlay">
+        <h3 class="sub-card-name">${s.name}</h3>
+        <p class="sub-card-tags">${s.tags}</p>
+        <span class="sub-card-cta">View Photos →</span>
+      </div>
+    </a>`).join('');
+
+  return `<!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8"/>
-  <meta name="viewport" content="width=device-width,initial-scale=1.0"/>
-  <title>${c.name} — SO LLOYD's</title>
-  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;1,300;1,400&family=DM+Mono:wght@300;400&family=Bebas+Neue&display=swap" rel="stylesheet"/>
+  <meta charset="UTF-8"/><meta name="viewport" content="width=device-width,initial-scale=1.0"/>
+  <title>${country.name} — SO LLOYD's</title>
+  ${SHARED_FONTS}
   <style>
-    *,*::before,*::after{box-sizing:border-box;margin:0;padding:0;}
-    :root{--accent:#b5883a;--border:rgba(255,255,255,.08);}
-    body{background:#080808;color:#f0ebe2;font-family:'DM Mono',monospace;font-weight:300;cursor:none;}
-    .cursor{position:fixed;width:8px;height:8px;background:var(--accent);border-radius:50%;pointer-events:none;z-index:9999;transform:translate(-50%,-50%);transition:width .3s,height .3s;}
-    .cursor-ring{position:fixed;width:32px;height:32px;border:1px solid var(--accent);border-radius:50%;pointer-events:none;z-index:9998;transform:translate(-50%,-50%);opacity:.5;transition:width .2s,height .2s;}
-    nav{position:fixed;top:0;left:0;right:0;z-index:200;display:flex;align-items:center;justify-content:space-between;padding:20px 52px;background:rgba(0,0,0,.75);backdrop-filter:blur(14px);border-bottom:1px solid var(--border);}
-    .nav-logo{font-family:'Bebas Neue',sans-serif;font-size:1.35rem;letter-spacing:.14em;color:#fff;text-decoration:none;}
-    .nav-logo span{color:var(--accent);}
-    .nav-back{font-size:.6rem;letter-spacing:.2em;text-transform:uppercase;color:rgba(255,255,255,.55);text-decoration:none;border:1px solid rgba(255,255,255,.18);padding:9px 20px;transition:color .2s,border-color .2s;cursor:none;}
-    .nav-back:hover{color:#fff;border-color:rgba(255,255,255,.45);}
-    .page-header{padding:120px 52px 44px;border-bottom:1px solid var(--border);}
-    .page-eyebrow{font-size:.58rem;letter-spacing:.28em;text-transform:uppercase;color:var(--accent);margin-bottom:12px;}
-    .page-title{font-family:'Cormorant Garamond',serif;font-size:clamp(2.4rem,5vw,4.5rem);font-weight:300;color:#fff;line-height:1.05;margin-bottom:8px;}
-    .page-tags{font-size:.6rem;letter-spacing:.18em;color:rgba(255,255,255,.38);text-transform:uppercase;}
-    .photo-masonry{padding:3px;columns:2;column-gap:3px;}
-    .photo-item{break-inside:avoid;margin-bottom:3px;overflow:hidden;}
-    .photo-item img{width:100%;height:auto;display:block;transition:transform .6s cubic-bezier(.25,.46,.45,.94);}
-    .photo-item:hover img{transform:scale(1.03);}
-    footer{border-top:1px solid var(--border);padding:36px 52px;display:flex;align-items:center;justify-content:space-between;margin-top:36px;}
-    .footer-logo{font-family:'Bebas Neue',sans-serif;font-size:1.1rem;letter-spacing:.14em;color:rgba(255,255,255,.3);}
-    .footer-logo span{color:var(--accent);}
-    .footer-back{font-size:.58rem;letter-spacing:.15em;text-transform:uppercase;color:rgba(255,255,255,.38);text-decoration:none;transition:color .2s;cursor:none;}
-    .footer-back:hover{color:var(--accent);}
-    @media(max-width:768px){
-      nav{padding:16px 20px;} .page-header{padding:90px 20px 32px;}
-      .photo-masonry{columns:1;padding:2px;} body{cursor:auto;} .cursor,.cursor-ring{display:none;} a{cursor:pointer!important;}
-      footer{padding:28px 20px;flex-direction:column;gap:14px;text-align:center;}
-    }
+    ${SHARED_CSS}
+    .sub-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:16px;padding:48px 52px;}
+    .sub-card{position:relative;aspect-ratio:3/4;overflow:hidden;display:block;text-decoration:none;cursor:none;}
+    .sub-card-bg{position:absolute;inset:0;background-size:cover;background-position:center;transition:transform .7s cubic-bezier(.25,.46,.45,.94);}
+    .sub-card:hover .sub-card-bg{transform:scale(1.05);}
+    .sub-card-overlay{position:absolute;inset:0;background:linear-gradient(to top,rgba(5,8,18,.88) 0%,rgba(5,8,18,.08) 60%);display:flex;flex-direction:column;justify-content:flex-end;padding:28px;}
+    .sub-card-name{font-family:'Cormorant Garamond',serif;font-size:1.6rem;font-weight:300;color:#fff;margin-bottom:6px;}
+    .sub-card-tags{font-size:.55rem;letter-spacing:.16em;color:rgba(255,255,255,.5);text-transform:uppercase;margin-bottom:14px;}
+    .sub-card-cta{font-size:.57rem;letter-spacing:.2em;text-transform:uppercase;color:var(--accent);opacity:0;transform:translateY(8px);transition:opacity .3s,transform .3s;}
+    .sub-card:hover .sub-card-cta{opacity:1;transform:translateY(0);}
+    @media(max-width:768px){.sub-grid{grid-template-columns:1fr 1fr;gap:10px;padding:32px 20px;}}
   </style>
 </head>
 <body>
@@ -99,57 +151,114 @@ return `<!DOCTYPE html>
     <a href="/" class="nav-back">← All Destinations</a>
   </nav>
   <div class="page-header">
-    <p class="page-eyebrow">${c.flag} Portfolio</p>
-    <h1 class="page-title">${c.name}</h1>
-    <p class="page-tags">${c.tags}</p>
+    <p class="page-eyebrow">${country.flag} Portfolio</p>
+    <h1 class="page-title">${country.name}</h1>
+    <p class="page-tags">Select a location to explore</p>
   </div>
-  <div class="photo-masonry">
-    ${c.photos.map(f=>`<div class="photo-item"><img src="${R2}/${f}" loading="lazy" onerror="this.closest('.photo-item').style.display='none'" draggable="false" oncontextmenu="return false"/></div>`).join('')}
-  </div>
+  <div class="sub-grid">${cards}</div>
   <footer>
     <div class="footer-logo">SO LLOYD'S<span>.</span></div>
     <a href="/" class="footer-back">← All Destinations</a>
   </footer>
-  <script>
-    const cursor=document.getElementById('cursor'),ring=document.getElementById('cursorRing');
-    let mx=0,my=0,rx=0,ry=0;
-    document.addEventListener('mousemove',e=>{mx=e.clientX;my=e.clientY;cursor.style.left=mx+'px';cursor.style.top=my+'px';});
-    (function loop(){rx+=(mx-rx)*.12;ry+=(my-ry)*.12;ring.style.left=rx+'px';ring.style.top=ry+'px';requestAnimationFrame(loop);})();
-    document.querySelectorAll('a').forEach(el=>{el.addEventListener('mouseenter',()=>{cursor.style.width='18px';cursor.style.height='18px';ring.style.width='50px';ring.style.height='50px';});el.addEventListener('mouseleave',()=>{cursor.style.width='8px';cursor.style.height='8px';ring.style.width='32px';ring.style.height='32px';});});
-    document.addEventListener('contextmenu',e=>{if(e.target.tagName==='IMG')e.preventDefault();});
-    document.addEventListener('dragstart',e=>{if(e.target.tagName==='IMG')e.preventDefault();});
-  </script>
+  <script>${SHARED_JS}</script>
+</body>
+</html>`;
+}
+
+/* ─── GALLERY PAGE (e.g. /portfolio/japan/kyoto or /portfolio/hongkong) ─── */
+function galleryPage(R2, flag, title, countryName, backUrl, backLabel, photos) {
+  const backHref = backUrl || '/';
+  const backText = backUrl ? `← ${backLabel}` : '← All Destinations';
+  const breadcrumb = backUrl ? `${flag} ${countryName} <span style="opacity:.4;margin:0 8px;">›</span> ${title}` : `${flag} ${title}`;
+  const photoItems = photos.map(f => `
+    <div class="photo-item">
+      <img src="${R2}/${f}" loading="lazy" onerror="this.closest('.photo-item').style.display='none'" draggable="false" oncontextmenu="return false"/>
+    </div>`).join('');
+
+  return `<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8"/><meta name="viewport" content="width=device-width,initial-scale=1.0"/>
+  <title>${title} — SO LLOYD's</title>
+  ${SHARED_FONTS}
+  <style>
+    ${SHARED_CSS}
+    .breadcrumb{font-size:.6rem;letter-spacing:.18em;text-transform:uppercase;color:rgba(255,255,255,.4);margin-bottom:14px;}
+    .photo-masonry{columns:2;column-gap:14px;padding:40px 52px;}
+    .photo-item{break-inside:avoid;margin-bottom:14px;overflow:hidden;}
+    .photo-item img{width:100%;height:auto;display:block;transition:transform .5s cubic-bezier(.25,.46,.45,.94);}
+    .photo-item:hover img{transform:scale(1.03);}
+    @media(max-width:768px){.photo-masonry{columns:1;padding:24px 16px;} .photo-item{margin-bottom:10px;}}
+  </style>
+</head>
+<body>
+  <div class="cursor" id="cursor"></div>
+  <div class="cursor-ring" id="cursorRing"></div>
+  <nav>
+    <a href="/" class="nav-logo">SO LLOYD'S<span>.</span></a>
+    <a href="${backHref}" class="nav-back">${backText}</a>
+  </nav>
+  <div class="page-header">
+    <p class="page-eyebrow breadcrumb">${breadcrumb}</p>
+    <h1 class="page-title">${title}</h1>
+  </div>
+  <div class="photo-masonry">${photoItems}</div>
+  <footer>
+    <div class="footer-logo">SO LLOYD'S<span>.</span></div>
+    <a href="${backHref}" class="footer-back">${backText}</a>
+  </footer>
+  <script>${SHARED_JS}</script>
 </body>
 </html>`;
 }
 
 /* ─── MAIN PAGE ─────────────────────────────────────────────────────────── */
-function mainPage(R2, PORTFOLIO, FEATURED, WALLPAPERS) {
-const countryCards = PORTFOLIO.map(c=>`
-  <a href="/portfolio/${c.slug}" class="country-card reveal">
-    <div class="cc-bg" style="background-image:url('${R2}/${c.cover}');"></div>
-    <div class="cc-overlay">
-      <div class="cc-flag">${c.flag}</div>
-      <h3 class="cc-name">${c.name}</h3>
-      <p class="cc-tags">${c.tags}</p>
-      <span class="cc-cta">Explore →</span>
+function mainPage(R2, COUNTRIES, FEATURED, WALLPAPERS) {
+
+  const destCards = COUNTRIES.map(c => `
+    <a href="/portfolio/${c.slug}" class="dest-card">
+      <div class="dest-flag">${c.flag}</div>
+      <div class="dest-name">${c.name}</div>
+      <div class="dest-status">${c.subs ? c.subs.map(s=>s.name).join(' · ') : 'Explore'}</div>
+    </a>`).join('') + `
+    <div class="dest-card">
+      <div class="dest-flag">🇮🇩</div>
+      <div class="dest-name">Indonesia</div>
+      <div class="dest-status">Nature · Hike · Aerial</div>
     </div>
-  </a>`).join('');
+    <div class="dest-card">
+      <div class="dest-flag">🇳🇴</div>
+      <div class="dest-name">Norway</div>
+      <div class="dest-status upcoming">↑ Coming Soon — Late 2026</div>
+    </div>`;
 
-const featCells = FEATURED.map((f,i)=>`
-  <div class="feat-cell ${i===0?'feat-main':''}" style="background-image:url('${R2}/${f.file}');">
-    <div class="feat-info"><p class="feat-loc">${f.loc}</p></div>
-  </div>`).join('');
+  const featuredItems = FEATURED.map(f => `
+    <div class="feat-item">
+      <div class="feat-bg" style="background-image:url('${R2}/${f.file}');"></div>
+      <div class="feat-credit">${f.credit}</div>
+    </div>`).join('');
 
-const wallpaperCards = WALLPAPERS.map(f=>`
-  <div class="wp-item reveal">
-    <div class="phone-shell">
-      <div class="phone-island"></div>
-      <div class="phone-screen" style="background-image:url('${R2}/${f}');background-size:cover;background-position:center;"></div>
-    </div>
-  </div>`).join('');
+  const countryCards = COUNTRIES.map(c => `
+    <a href="/portfolio/${c.slug}" class="country-card reveal">
+      <div class="cc-bg" style="background-image:url('${R2}/${c.cover}');"></div>
+      <div class="cc-overlay">
+        <div class="cc-flag">${c.flag}</div>
+        <h3 class="cc-name">${c.name}</h3>
+        <p class="cc-sub">${c.subs ? c.subs.map(s=>s.name).join(' · ') : 'Explore Gallery'}</p>
+        <span class="cc-cta">Explore →</span>
+      </div>
+    </a>`).join('');
 
-return `<!DOCTYPE html>
+  const wallpaperCards = WALLPAPERS.map(f => `
+    <div class="wp-item reveal">
+      <div class="phone-shell">
+        <div class="phone-island"></div>
+        <div class="phone-screen" style="background-image:url('${R2}/${f}');background-size:cover;background-position:center;"
+             onerror="this.closest('.wp-item').style.display='none'"></div>
+      </div>
+    </div>`).join('');
+
+  return `<!DOCTYPE html>
 <html lang="en">
 <head>
   <meta charset="UTF-8"/>
@@ -166,13 +275,12 @@ return `<!DOCTYPE html>
     }
     html{scroll-behavior:smooth;}
     body{background:linear-gradient(to bottom,#f0f9fc 0%,#d8eef7 6%,#a8d8ec 14%,#87ceeb 22%,#5fb3d4 36%,#3a8db5 50%,#1e5a8a 62%,#0a3a5e 74%,#051f3a 84%,#02060d 93%,#000000 100%);background-attachment:fixed;color:var(--charcoal);font-family:'DM Mono',monospace;font-weight:300;overflow-x:hidden;cursor:none;}
-    img,.photo-bg,.print-art,.insta-bg,.profile-img{-webkit-user-drag:none;user-select:none;}
     .cursor{position:fixed;width:8px;height:8px;background:var(--accent);border-radius:50%;pointer-events:none;z-index:9999;transform:translate(-50%,-50%);transition:width .3s,height .3s;}
     .cursor-ring{position:fixed;width:32px;height:32px;border:1px solid var(--accent);border-radius:50%;pointer-events:none;z-index:9998;transform:translate(-50%,-50%);opacity:.55;transition:width .2s,height .2s;}
 
     /* NAV */
     nav{position:fixed;top:0;left:0;right:0;z-index:200;display:flex;align-items:center;justify-content:space-between;padding:22px 52px;background:rgba(5,12,25,.65);backdrop-filter:blur(14px);border-bottom:1px solid rgba(255,255,255,.08);transition:background .6s,border-color .6s;}
-    .nav-logo{font-family:'Bebas Neue',sans-serif;font-size:1.45rem;letter-spacing:.14em;color:#fff;text-decoration:none;transition:color .6s;}
+    .nav-logo{font-family:'Bebas Neue',sans-serif;font-size:1.45rem;letter-spacing:.14em;color:#fff;text-decoration:none;}
     .nav-logo span{color:var(--accent);}
     .nav-links{display:flex;gap:30px;list-style:none;}
     .nav-links a{color:rgba(255,255,255,.65);text-decoration:none;font-size:.62rem;letter-spacing:.2em;text-transform:uppercase;transition:color .3s;}
@@ -188,26 +296,26 @@ return `<!DOCTYPE html>
     .mobile-menu a{font-family:'Cormorant Garamond',serif;font-size:1.9rem;font-weight:300;color:#fff;text-decoration:none;transition:color .2s;}
     .mobile-menu a:hover{color:var(--accent);}
     .mobile-menu a em{font-style:italic;color:var(--accent);}
-    .mobile-menu-cta{margin-top:20px;background:var(--accent);color:#fff!important;padding:14px 36px;font-family:'DM Mono',monospace!important;font-size:.65rem!important;font-weight:300!important;letter-spacing:.2em;text-transform:uppercase;}
+    .mobile-menu-cta{margin-top:20px;background:var(--accent);color:#fff!important;padding:14px 36px;font-family:'DM Mono',monospace!important;font-size:.65rem!important;letter-spacing:.2em;text-transform:uppercase;}
 
-    /* HERO — full bleed */
+    /* HERO */
     .hero{min-height:100vh;position:relative;display:flex;align-items:center;padding:110px 8% 80px;overflow:hidden;}
     .hero-bg{position:absolute;inset:0;background-size:cover;background-position:center;z-index:0;}
-    .hero-overlay{position:absolute;inset:0;background:linear-gradient(105deg,rgba(4,10,22,.88) 0%,rgba(4,10,22,.62) 48%,rgba(4,10,22,.18) 100%);z-index:1;}
+    .hero-overlay{position:absolute;inset:0;background:linear-gradient(105deg,rgba(4,10,22,.9) 0%,rgba(4,10,22,.65) 48%,rgba(4,10,22,.2) 100%);z-index:1;}
     .hero-left{position:relative;z-index:2;max-width:560px;}
-    .hero-eyebrow{font-size:.6rem;letter-spacing:.28em;text-transform:uppercase;color:rgba(255,255,255,.55);margin-bottom:20px;opacity:0;animation:fadeUp .7s .2s forwards;}
+    .hero-eyebrow{font-size:.6rem;letter-spacing:.28em;text-transform:uppercase;color:rgba(255,255,255,.5);margin-bottom:20px;opacity:0;animation:fadeUp .7s .2s forwards;}
     .hero-title{font-family:'Cormorant Garamond',serif;font-size:clamp(2.6rem,5.8vw,5.2rem);font-weight:300;line-height:1.02;color:#fff;margin-bottom:28px;opacity:0;animation:fadeUp .7s .35s forwards;}
     .hero-title em{font-style:italic;color:var(--accent);}
     .hero-title .line{display:block;}
-    .hero-title .line-sub{font-size:.72em;color:rgba(255,255,255,.55);margin-top:.18em;}
-    .hero-sub{font-size:.68rem;color:rgba(255,255,255,.6);line-height:2;letter-spacing:.04em;max-width:420px;margin-bottom:38px;opacity:0;animation:fadeUp .7s .5s forwards;}
-    .hero-sub a{color:rgba(255,255,255,.85);text-decoration:none;border-bottom:1px solid var(--accent);transition:color .2s;}
+    .hero-title .line-sub{font-size:.72em;color:rgba(255,255,255,.5);margin-top:.18em;}
+    .hero-sub{font-size:.68rem;color:rgba(255,255,255,.58);line-height:2;letter-spacing:.04em;max-width:420px;margin-bottom:38px;opacity:0;animation:fadeUp .7s .5s forwards;}
+    .hero-sub a{color:rgba(255,255,255,.82);text-decoration:none;border-bottom:1px solid var(--accent);transition:color .2s;}
     .hero-sub a:hover{color:var(--accent);}
-    .hero-sub .badge{display:inline-block;font-family:'DM Mono',monospace;font-size:.56rem;letter-spacing:.22em;text-transform:uppercase;color:var(--accent);border:1px solid rgba(181,136,58,.5);padding:3px 10px;margin-top:14px;}
+    .hero-sub .badge{display:inline-block;font-size:.56rem;letter-spacing:.22em;text-transform:uppercase;color:var(--accent);border:1px solid rgba(181,136,58,.45);padding:3px 10px;margin-top:14px;}
     .hero-actions{display:flex;gap:14px;flex-wrap:wrap;opacity:0;animation:fadeUp .7s .65s forwards;}
     .btn-dark{background:var(--accent);color:#fff;padding:13px 28px;text-decoration:none;cursor:none;font-family:'DM Mono',monospace;font-size:.63rem;letter-spacing:.18em;text-transform:uppercase;transition:background .25s;}
     .btn-dark:hover{background:#fff;color:var(--charcoal);}
-    .btn-outline{background:transparent;color:rgba(255,255,255,.8);border:1px solid rgba(255,255,255,.3);padding:13px 28px;text-decoration:none;cursor:none;font-family:'DM Mono',monospace;font-size:.63rem;letter-spacing:.18em;text-transform:uppercase;transition:border-color .25s,color .25s;}
+    .btn-outline{background:transparent;color:rgba(255,255,255,.78);border:1px solid rgba(255,255,255,.28);padding:13px 28px;text-decoration:none;cursor:none;font-family:'DM Mono',monospace;font-size:.63rem;letter-spacing:.18em;text-transform:uppercase;transition:border-color .25s,color .25s;}
     .btn-outline:hover{border-color:#fff;color:#fff;}
 
     /* STATS */
@@ -217,7 +325,7 @@ return `<!DOCTYPE html>
     .stat-num{font-family:'Cormorant Garamond',serif;font-size:2.6rem;font-weight:300;color:var(--accent);line-height:1;margin-bottom:5px;}
     .stat-label{font-size:.6rem;letter-spacing:.2em;text-transform:uppercase;color:var(--muted);transition:color .6s;}
 
-    /* SHARED */
+    /* SHARED LAYOUT */
     .sec-pad{padding:72px 52px 0;}
     .section-header{display:flex;align-items:baseline;justify-content:space-between;margin-bottom:36px;}
     .section-title{font-family:'Cormorant Garamond',serif;font-size:clamp(1.9rem,4vw,3.2rem);font-weight:300;color:var(--charcoal);transition:color .6s;}
@@ -225,36 +333,35 @@ return `<!DOCTYPE html>
     .section-link{font-size:.6rem;letter-spacing:.2em;text-transform:uppercase;color:var(--muted);text-decoration:none;transition:color .6s;}
     .section-link:hover{color:var(--accent);}
 
-    /* DESTINATIONS */
+    /* WHERE I'VE SHOT */
     .destinations{display:flex;gap:0;overflow-x:auto;border:1px solid var(--border);background:rgba(255,255,255,.78);backdrop-filter:blur(8px);scrollbar-width:none;transition:background .6s;}
     .destinations::-webkit-scrollbar{display:none;}
-    .dest-card{flex:0 0 175px;padding:28px 24px;border-right:1px solid var(--border);transition:background .22s;cursor:none;}
-    .dest-card:last-child{border-right:none;}
-    .dest-card:hover{background:rgba(181,136,58,.1);}
+    a.dest-card,div.dest-card{flex:0 0 175px;padding:28px 24px;border-right:1px solid var(--border);transition:background .22s;cursor:none;text-decoration:none;color:inherit;display:block;}
+    a.dest-card:last-child,div.dest-card:last-child{border-right:none;}
+    a.dest-card:hover{background:rgba(181,136,58,.1);}
     .dest-flag{font-size:1.5rem;margin-bottom:10px;}
     .dest-name{font-family:'Cormorant Garamond',serif;font-size:1.15rem;font-weight:300;color:var(--charcoal);margin-bottom:4px;transition:color .6s;}
     .dest-status{font-size:.56rem;letter-spacing:.16em;text-transform:uppercase;color:var(--muted);transition:color .6s;}
     .dest-status.upcoming{color:var(--accent);}
 
-    /* FEATURED GRID */
+    /* FEATURED WORKS */
     #portfolio{padding:72px 0 0;}
-    .feat-grid{display:grid;grid-template-columns:2fr 1fr 1fr;grid-template-rows:300px 300px;gap:3px;margin-top:36px;}
-    .feat-cell{position:relative;overflow:hidden;background-size:cover;background-position:center;cursor:none;}
-    .feat-cell.feat-main{grid-row:1/3;grid-column:1/2;}
-    .feat-info{position:absolute;bottom:0;left:0;right:0;padding:22px 20px;background:linear-gradient(to top,rgba(10,15,25,.75) 0%,transparent 100%);opacity:0;transform:translateY(6px);transition:opacity .3s,transform .3s;}
-    .feat-cell:hover .feat-info{opacity:1;transform:translateY(0);}
-    .feat-loc{font-size:.56rem;letter-spacing:.2em;text-transform:uppercase;color:rgba(255,255,255,.85);}
+    .feat-grid{display:grid;grid-template-columns:1fr 1fr;gap:14px;padding:36px 52px 0;}
+    .feat-item{position:relative;overflow:hidden;aspect-ratio:3/2;cursor:none;}
+    .feat-bg{position:absolute;inset:0;background-size:cover;background-position:center;transition:transform .7s cubic-bezier(.25,.46,.45,.94);}
+    .feat-item:hover .feat-bg{transform:scale(1.04);}
+    .feat-credit{position:absolute;bottom:0;left:0;right:0;padding:40px 20px 16px;background:linear-gradient(to top,rgba(5,8,18,.85) 0%,transparent 100%);font-size:.57rem;letter-spacing:.16em;text-transform:uppercase;color:rgba(255,255,255,.75);}
 
     /* COUNTRY CARDS */
-    .country-cards{display:grid;grid-template-columns:repeat(3,1fr);gap:3px;margin-top:36px;}
+    .country-cards{display:grid;grid-template-columns:repeat(3,1fr);gap:14px;padding:0 52px;margin-top:36px;}
     .country-card{position:relative;aspect-ratio:4/5;overflow:hidden;display:block;text-decoration:none;cursor:none;}
     .cc-bg{position:absolute;inset:0;background-size:cover;background-position:center;transition:transform .7s cubic-bezier(.25,.46,.45,.94);}
     .country-card:hover .cc-bg{transform:scale(1.05);}
-    .cc-overlay{position:absolute;inset:0;background:linear-gradient(to top,rgba(8,12,22,.88) 0%,rgba(8,12,22,.1) 60%);display:flex;flex-direction:column;justify-content:flex-end;padding:26px;}
+    .cc-overlay{position:absolute;inset:0;background:linear-gradient(to top,rgba(5,8,18,.9) 0%,rgba(5,8,18,.08) 60%);display:flex;flex-direction:column;justify-content:flex-end;padding:26px;}
     .cc-flag{font-size:1.3rem;margin-bottom:8px;}
-    .cc-name{font-family:'Cormorant Garamond',serif;font-size:1.4rem;font-weight:300;color:#fff;margin-bottom:4px;line-height:1.15;}
-    .cc-tags{font-size:.55rem;letter-spacing:.16em;color:rgba(255,255,255,.5);text-transform:uppercase;margin-bottom:12px;}
-    .cc-cta{font-size:.58rem;letter-spacing:.2em;text-transform:uppercase;color:var(--accent);opacity:0;transform:translateY(8px);transition:opacity .3s,transform .3s;}
+    .cc-name{font-family:'Cormorant Garamond',serif;font-size:1.5rem;font-weight:300;color:#fff;margin-bottom:4px;line-height:1.15;}
+    .cc-sub{font-size:.54rem;letter-spacing:.15em;color:rgba(255,255,255,.45);text-transform:uppercase;margin-bottom:12px;}
+    .cc-cta{font-size:.57rem;letter-spacing:.2em;text-transform:uppercase;color:var(--accent);opacity:0;transform:translateY(8px);transition:opacity .3s,transform .3s;}
     .country-card:hover .cc-cta{opacity:1;transform:translateY(0);}
 
     /* ARTICLES */
@@ -264,40 +371,41 @@ return `<!DOCTYPE html>
 
     /* WALLPAPERS */
     #wallpapers{padding-bottom:80px;}
-    .wp-grid{display:flex;flex-wrap:wrap;gap:32px;padding:0 52px;}
+    .wp-grid{display:flex;flex-wrap:wrap;gap:36px;padding:36px 52px 0;}
     .wp-item{display:flex;flex-direction:column;align-items:center;}
     .phone-shell{width:118px;height:208px;background:linear-gradient(145deg,#2a2522,#1a1814);border-radius:24px;padding:8px 5px;box-shadow:0 0 0 1px rgba(255,255,255,.07),inset 0 0 0 1px rgba(255,255,255,.04),0 14px 44px rgba(28,24,20,.35);position:relative;transition:transform .4s;}
     .wp-item:hover .phone-shell{transform:translateY(-8px) rotate(-1.5deg);}
-    .phone-screen{width:100%;height:100%;border-radius:18px;overflow:hidden;position:relative;background-size:cover;background-position:center;}
+    .phone-screen{width:100%;height:100%;border-radius:18px;overflow:hidden;background-size:cover;background-position:center;}
     .phone-island{position:absolute;top:11px;left:50%;transform:translateX(-50%);width:30px;height:8px;background:#1a1814;border-radius:6px;z-index:5;}
 
     /* GEARS */
     #gears{padding-bottom:80px;}
-    .gear-intro{font-size:.68rem;color:var(--muted);line-height:2;max-width:580px;margin:0 52px 48px;letter-spacing:.03em;transition:color .6s;}
-    .gear-categories{display:grid;grid-template-columns:repeat(3,1fr);gap:3px;margin:0 52px;}
-    .gear-cat{background:rgba(247,244,239,.85);backdrop-filter:blur(8px);border:1px solid var(--border);padding:32px 28px;transition:box-shadow .25s,background .6s;}
+    .gear-intro{font-size:.7rem;color:var(--muted);line-height:2;max-width:580px;margin:0 52px 48px;letter-spacing:.03em;transition:color .6s;}
+    .gear-categories{display:grid;grid-template-columns:repeat(3,1fr);gap:14px;margin:0 52px;}
+    .gear-cat{background:rgba(247,244,239,.85);backdrop-filter:blur(8px);border:1px solid var(--border);padding:36px 32px;transition:box-shadow .25s,background .6s;}
     .gear-cat:hover{box-shadow:0 6px 32px rgba(28,24,20,.09);}
     .gear-cat-title{font-size:.6rem;letter-spacing:.22em;text-transform:uppercase;color:var(--accent);margin-bottom:20px;padding-bottom:14px;border-bottom:1px solid var(--border);}
     .gear-list{list-style:none;display:flex;flex-direction:column;}
-    .gear-item{display:flex;align-items:flex-start;gap:14px;padding:12px 0;border-bottom:1px solid var(--border);font-size:.65rem;color:var(--charcoal);line-height:1.5;transition:color .6s;}
+    .gear-item{display:flex;align-items:flex-start;gap:14px;padding:13px 0;border-bottom:1px solid var(--border);font-size:.67rem;color:var(--charcoal);line-height:1.6;transition:color .6s;}
     .gear-item:last-child{border-bottom:none;}
     .gear-num{font-family:'Cormorant Garamond',serif;font-size:1rem;font-weight:300;color:var(--muted-light);min-width:20px;line-height:1.2;}
     .gear-name{flex:1;}
     .gear-name strong{display:block;font-weight:400;color:var(--charcoal);transition:color .6s;}
-    .gear-name span{font-size:.58rem;color:var(--muted);letter-spacing:.06em;transition:color .6s;}
+    .gear-name span{font-size:.6rem;color:var(--muted);letter-spacing:.06em;transition:color .6s;}
 
     /* ABOUT */
     .about-section{display:grid;grid-template-columns:1fr 1fr;border-top:1px solid var(--border);margin:0 52px;background:rgba(240,235,226,.7);backdrop-filter:blur(8px);transition:background .6s;}
-    .about-text{padding:68px 52px 68px 0;border-right:1px solid var(--border);}
-    .about-text h2{font-family:'Cormorant Garamond',serif;font-size:clamp(1.9rem,3.2vw,2.7rem);font-weight:300;color:var(--charcoal);margin-bottom:26px;line-height:1.15;transition:color .6s;}
+    .about-text{padding:72px 60px 72px 0;border-right:1px solid var(--border);}
+    .about-text h2{font-family:'Cormorant Garamond',serif;font-size:clamp(2rem,3.2vw,2.9rem);font-weight:300;color:var(--charcoal);margin-bottom:32px;line-height:1.2;transition:color .6s;}
     .about-text h2 em{font-style:italic;color:var(--accent);}
-    .about-text p{font-size:.67rem;color:var(--muted);line-height:2.1;margin-bottom:16px;letter-spacing:.03em;transition:color .6s;}
-    .badge-tag{display:inline-block;border:1px solid var(--border-strong);color:var(--muted);font-size:.55rem;letter-spacing:.15em;text-transform:uppercase;padding:5px 12px;margin:4px 4px 0 0;transition:color .6s,border-color .6s;}
-    .about-visual{padding:68px 0 68px 52px;display:flex;flex-direction:column;justify-content:center;gap:36px;}
-    .profile-frame{position:relative;width:200px;height:200px;border-radius:50%;overflow:hidden;background:#fff;align-self:flex-start;box-shadow:0 6px 28px rgba(28,24,20,.12);border:3px solid #fff;}
-    .about-quote{font-family:'Cormorant Garamond',serif;font-size:clamp(1.3rem,2.5vw,1.9rem);font-style:italic;font-weight:300;color:var(--charcoal);line-height:1.55;margin-bottom:20px;transition:color .6s;}
+    .about-text p{font-size:.75rem;color:var(--muted);line-height:2.2;margin-bottom:20px;letter-spacing:.03em;transition:color .6s;}
+    .badge-tag{display:inline-block;border:1px solid var(--border-strong);color:var(--muted);font-size:.57rem;letter-spacing:.15em;text-transform:uppercase;padding:6px 14px;margin:5px 5px 0 0;transition:color .6s,border-color .6s;}
+    .about-visual{padding:72px 0 72px 60px;display:flex;flex-direction:column;justify-content:center;gap:36px;}
+    .profile-frame{position:relative;width:210px;height:210px;border-radius:50%;overflow:hidden;align-self:flex-start;box-shadow:0 6px 28px rgba(28,24,20,.12);border:3px solid #fff;}
+    .profile-frame img{width:100%;height:100%;object-fit:cover;display:block;}
+    .about-quote{font-family:'Cormorant Garamond',serif;font-size:clamp(1.35rem,2.5vw,2rem);font-style:italic;font-weight:300;color:var(--charcoal);line-height:1.55;margin-bottom:20px;transition:color .6s;}
     .about-divider{width:40px;height:1px;background:var(--accent);margin-bottom:16px;}
-    .about-quote-attr{font-size:.58rem;letter-spacing:.24em;color:var(--accent);text-transform:uppercase;}
+    .about-quote-attr{font-size:.6rem;letter-spacing:.24em;color:var(--accent);text-transform:uppercase;}
     .about-quote-attr .dot{display:inline-block;margin:0 10px;opacity:.6;}
 
     /* CONTACT */
@@ -305,14 +413,14 @@ return `<!DOCTYPE html>
     .contact-eyebrow{font-size:.6rem;letter-spacing:.28em;text-transform:uppercase;color:var(--accent);margin-bottom:22px;}
     .contact-title{font-family:'Cormorant Garamond',serif;font-size:clamp(2.2rem,4.8vw,3.8rem);font-weight:300;color:var(--charcoal);line-height:1.1;margin-bottom:26px;transition:color .6s;}
     .contact-title em{font-style:italic;color:var(--accent);}
-    .contact-sub{font-size:.68rem;color:var(--muted);line-height:1.95;max-width:520px;margin:0 auto 40px;letter-spacing:.03em;transition:color .6s;}
+    .contact-sub{font-size:.7rem;color:var(--muted);line-height:1.95;max-width:520px;margin:0 auto 40px;letter-spacing:.03em;transition:color .6s;}
     .contact-email{display:inline-block;font-family:'Cormorant Garamond',serif;font-size:clamp(1.8rem,3.6vw,2.8rem);font-weight:300;font-style:italic;color:var(--charcoal);text-decoration:none;padding:18px 40px;border-top:1px solid var(--border);border-bottom:1px solid var(--border);transition:color .6s,border-color .6s;margin-bottom:32px;}
     .contact-email:hover{color:var(--accent);border-color:var(--accent);}
-    .contact-note{font-size:.58rem;letter-spacing:.2em;text-transform:uppercase;color:var(--muted-light);margin-top:12px;transition:color .6s;}
+    .contact-note{font-size:.6rem;letter-spacing:.2em;text-transform:uppercase;color:var(--muted-light);margin-top:12px;transition:color .6s;}
 
     /* INSTAGRAM */
     .insta-section{padding:80px 52px;border-top:1px solid var(--border);}
-    .insta-grid{display:grid;grid-template-columns:repeat(6,1fr);gap:3px;margin-bottom:40px;}
+    .insta-grid{display:grid;grid-template-columns:repeat(6,1fr);gap:10px;margin-bottom:40px;}
     .insta-cell{aspect-ratio:1;overflow:hidden;cursor:none;position:relative;}
     .insta-bg{width:100%;height:100%;transition:transform .5s;background-size:cover;background-position:center;}
     .insta-cell:hover .insta-bg{transform:scale(1.08);}
@@ -334,21 +442,20 @@ return `<!DOCTYPE html>
 
     /* SCROLL STATES */
     body.scroll-mid .section-title,body.scroll-mid .dest-name,body.scroll-mid .about-text h2,body.scroll-mid .contact-title,body.scroll-mid .about-quote,body.scroll-mid .insta-handle a,body.scroll-mid .gear-name strong,body.scroll-mid .gear-item{color:#f0f6fb;}
-    body.scroll-mid .about-text p,body.scroll-mid .gear-intro,body.scroll-mid .contact-sub,body.scroll-mid .articles-placeholder,body.scroll-mid .gear-name span,body.scroll-mid .dest-status{color:rgba(240,246,251,.75);}
-    body.scroll-mid .section-link,body.scroll-mid .footer-copy,body.scroll-mid .contact-note,body.scroll-mid .insta-handle,body.scroll-mid .badge-tag{color:rgba(240,246,251,.6);}
-    body.scroll-mid .badge-tag{border-color:rgba(240,246,251,.3);}
-    body.scroll-mid .stats-band,body.scroll-mid .destinations,body.scroll-mid .gear-cat,body.scroll-mid .articles-placeholder,body.scroll-mid .about-section{background:rgba(255,255,255,.08);border-color:rgba(255,255,255,.12);}
+    body.scroll-mid .about-text p,body.scroll-mid .gear-intro,body.scroll-mid .contact-sub,body.scroll-mid .articles-placeholder,body.scroll-mid .gear-name span,body.scroll-mid .dest-status{color:rgba(240,246,251,.72);}
+    body.scroll-mid .section-link,body.scroll-mid .footer-copy,body.scroll-mid .contact-note,body.scroll-mid .insta-handle,body.scroll-mid .badge-tag{color:rgba(240,246,251,.55);}
+    body.scroll-mid .badge-tag{border-color:rgba(240,246,251,.28);}
+    body.scroll-mid .stats-band,body.scroll-mid .destinations,body.scroll-mid .gear-cat,body.scroll-mid .articles-placeholder,body.scroll-mid .about-section{background:rgba(255,255,255,.08);border-color:rgba(255,255,255,.1);}
     body.scroll-mid .stat-num{color:#ffd27a;}
     body.scroll-deep .contact-title,body.scroll-deep .insta-handle a{color:#fff;}
-    body.scroll-deep .contact-email{color:#fff;border-color:rgba(255,255,255,.25);}
-    body.scroll-deep nav{background:rgba(0,0,0,.6)!important;border-bottom-color:rgba(255,255,255,.08);}
+    body.scroll-deep .contact-email{color:#fff;border-color:rgba(255,255,255,.22);}
+    body.scroll-deep nav{background:rgba(0,0,0,.6)!important;border-bottom-color:rgba(255,255,255,.07);}
     body.scroll-deep .nav-logo{color:#fff;}
     body.scroll-deep .nav-links a{color:rgba(255,255,255,.7);}
     body.scroll-deep footer{background:rgba(0,0,0,.6);}
-    body.scroll-deep .footer-logo,body.scroll-deep .footer-links a{color:rgba(255,255,255,.7);}
-    body.scroll-deep .footer-copy{color:rgba(255,255,255,.4);}
+    body.scroll-deep .footer-logo,body.scroll-deep .footer-links a{color:rgba(255,255,255,.68);}
+    body.scroll-deep .footer-copy{color:rgba(255,255,255,.35);}
 
-    /* ANIMATIONS */
     @keyframes fadeUp{from{opacity:0;transform:translateY(20px)}to{opacity:1;transform:translateY(0)}}
     @keyframes fadeIn{from{opacity:0}to{opacity:1}}
     .reveal{opacity:0;transform:translateY(16px);transition:opacity .6s,transform .6s;}
@@ -361,15 +468,14 @@ return `<!DOCTYPE html>
       .hero{padding:100px 24px 60px;}
       .stats-band{grid-template-columns:1fr;} .stat{border-right:none;border-bottom:1px solid var(--border);padding:22px 24px;}
       .sec-pad{padding:48px 24px 0;}
-      .feat-grid{grid-template-columns:1fr 1fr;grid-template-rows:auto;} .feat-cell.feat-main{grid-row:auto;grid-column:auto;aspect-ratio:4/3;}
-      .feat-cell{aspect-ratio:4/3;}
-      .country-cards{grid-template-columns:1fr 1fr;}
-      .articles-placeholder{margin:0 24px;padding:40px 24px;}
-      .wp-grid{padding:0 24px;}
-      .gear-intro,.gear-categories{margin:0 24px 32px;} .gear-categories{grid-template-columns:1fr;}
-      .about-section{margin:0 24px;grid-template-columns:1fr;} .about-text{padding:44px 0;border-right:none;border-bottom:1px solid var(--border);} .about-visual{padding:44px 0;}
+      .feat-grid{grid-template-columns:1fr;gap:10px;padding:24px 20px 0;}
+      .country-cards{grid-template-columns:1fr 1fr;gap:10px;padding:0 20px;}
+      .articles-placeholder{margin:0 20px;padding:40px 24px;}
+      .wp-grid{padding:24px 20px 0;gap:24px;}
+      .gear-intro,.gear-categories{margin:0 20px;} .gear-categories{grid-template-columns:1fr;gap:10px;}
+      .about-section{margin:0 20px;grid-template-columns:1fr;} .about-text{padding:44px 0;border-right:none;border-bottom:1px solid var(--border);} .about-visual{padding:44px 0;}
       #contact{padding:56px 24px;} .contact-email{font-size:1.4rem;padding:16px 20px;}
-      .insta-section{padding:56px 24px;} .insta-grid{grid-template-columns:repeat(3,1fr);}
+      .insta-section{padding:56px 24px;} .insta-grid{grid-template-columns:repeat(3,1fr);gap:6px;}
       footer{padding:30px 24px;flex-direction:column;gap:18px;text-align:center;} .footer-links{flex-wrap:wrap;justify-content:center;}
     }
   </style>
@@ -415,7 +521,7 @@ return `<!DOCTYPE html>
         <span class="line line-sub">who <em>waited</em>.</span>
       </h1>
       <p class="hero-sub">
-        A part-time travel photographer who carries 10kg worth of <a href="#gears">gears</a> in his trusty bag to inspire you to explore. Mobile wallpapers available in the <a href="#wallpapers">wallpapers</a> section.
+        A part-time travel photographer who carries 10kg worth of <a href="#gears">gears</a> to inspire you to explore. Mobile wallpapers available in the <a href="#wallpapers">wallpapers</a> section.
         <br><span class="badge">✦ Never made by AI</span>
       </p>
       <div class="hero-actions">
@@ -436,48 +542,42 @@ return `<!DOCTYPE html>
   <div class="sec-pad reveal">
     <div class="section-header"><h2 class="section-title">Where I've <em>Shot</em></h2></div>
     <div class="destinations">
-      <div class="dest-card"><div class="dest-flag">🇯🇵</div><div class="dest-name">Japan</div><div class="dest-status">Kyoto · Hokkaido · Mt Fuji</div></div>
-      <div class="dest-card"><div class="dest-flag">🇸🇬</div><div class="dest-name">Singapore</div><div class="dest-status">Sun/Moon · Architecture · Streets</div></div>
-      <div class="dest-card"><div class="dest-flag">🇭🇰</div><div class="dest-name">Hong Kong</div><div class="dest-status">Culture · Taxis · Streets</div></div>
-      <div class="dest-card"><div class="dest-flag">🇹🇭</div><div class="dest-name">Thailand</div><div class="dest-status">Bangkok · Culture · Streets</div></div>
-      <div class="dest-card"><div class="dest-flag">🇲🇾</div><div class="dest-name">Malaysia</div><div class="dest-status">Penang · KL · Milky Way</div></div>
-      <div class="dest-card"><div class="dest-flag">🇻🇳</div><div class="dest-name">Vietnam</div><div class="dest-status">Sapa · Hanoi · Ninh Binh</div></div>
-      <div class="dest-card"><div class="dest-flag">🇮🇩</div><div class="dest-name">Indonesia</div><div class="dest-status">Nature · Hike · Aerial</div></div>
-      <div class="dest-card"><div class="dest-flag">🇳🇴</div><div class="dest-name">Norway</div><div class="dest-status upcoming">↑ Coming Soon — Late 2026</div></div>
+      ${destCards}
     </div>
   </div>
 
   <!-- PORTFOLIO -->
   <section id="portfolio">
     <div class="sec-pad reveal">
-      <div class="section-header">
-        <h2 class="section-title">Featured <em>Work</em></h2>
-      </div>
+      <div class="section-header"><h2 class="section-title">Featured <em>Work</em></h2></div>
     </div>
     <div class="feat-grid reveal">
-      ${featCells}
+      ${featuredItems}
     </div>
 
-    <div class="sec-pad reveal" style="padding-top:60px;">
+    <div class="sec-pad reveal" style="padding-top:64px;">
       <div class="section-header">
         <h2 class="section-title">Browse by <em>Destination</em></h2>
-        <span class="section-link">Click any destination to explore all photos</span>
+        <span class="section-link">Click to explore all photos →</span>
       </div>
     </div>
     <div class="country-cards">
       ${countryCards}
     </div>
+    <div style="height:80px;"></div>
   </section>
 
   <!-- ARTICLES -->
   <section id="articles">
     <div class="sec-pad reveal">
-      <div class="section-header"><h2 class="section-title">Field <em>Notes</em></h2><a href="#articles" class="section-link">All Articles →</a></div>
+      <div class="section-header"><h2 class="section-title">Field <em>Notes</em></h2></div>
     </div>
+    <div style="height:36px;"></div>
     <div class="articles-placeholder reveal">
       <p>Writing in progress — <em>stories, gear reviews, and location guides on the way.</em></p>
       <p style="margin-top:10px;font-size:.58rem;letter-spacing:.16em;text-transform:uppercase;color:var(--muted-light);">Follow <a href="https://instagram.com/being_lloyds" target="_blank" style="color:var(--accent);text-decoration:none;border-bottom:1px solid var(--accent);">@being_lloyds</a> for updates</p>
     </div>
+    <div style="height:80px;"></div>
   </section>
 
   <!-- MOBILE WALLPAPERS -->
@@ -485,10 +585,10 @@ return `<!DOCTYPE html>
     <div class="sec-pad reveal">
       <div class="section-header"><h2 class="section-title">Mobile <em>Wallpapers</em></h2></div>
     </div>
-    <div style="height:36px;"></div>
     <div class="wp-grid">
       ${wallpaperCards}
     </div>
+    <div style="height:80px;"></div>
   </section>
 
   <!-- GEARS -->
@@ -527,6 +627,7 @@ return `<!DOCTYPE html>
         </ul>
       </div>
     </div>
+    <div style="height:80px;"></div>
   </section>
 
   <!-- ABOUT -->
@@ -538,13 +639,14 @@ return `<!DOCTYPE html>
         <p>I've always wanted to own a camera since I was young — it was only when my career in the fitness industry stabilised that I finally bought my first, and two weeks later a dear friend convinced me to futureproof the system. I did.</p>
         <p>The first year was genuinely bad. Trial, error, and a lot of replicating the work of photographers I admired — trying to reverse-engineer what they were thinking when they pressed the shutter. Editing thousands of photos in that first year did something unexpected: it rapidly sharpened my creative instinct, and changed how I see the world through a viewfinder.</p>
         <p>Now I'm a part-time travel photographer obsessed with creating wall-hung-standard images in places I could never see from Singapore. I believe in waiting for the right moment — to create the unforgettable secret.</p>
-        <div style="margin-top:22px;">
+        <div style="margin-top:28px;">
           <span class="badge-tag">Travel Photography</span><span class="badge-tag">Landscape</span><span class="badge-tag">Long Exposure</span><span class="badge-tag">Astrophotography</span><span class="badge-tag">Lightroom</span><span class="badge-tag">Fitness & Gym</span>
         </div>
       </div>
       <div class="about-visual">
         <div class="profile-frame">
-          <div class="profile-img" style="background:linear-gradient(135deg,#a8c4e0,#1a5080);width:100%;height:100%;"></div>
+          <img src="${R2}/profile.JPG" alt="Lloyd So" onerror="this.style.display='none';this.nextElementSibling.style.display='flex'"/>
+          <div style="display:none;width:100%;height:100%;background:linear-gradient(135deg,#a8c4e0,#1a5080);align-items:center;justify-content:center;color:rgba(255,255,255,.45);font-size:.58rem;letter-spacing:.08em;text-align:center;padding:16px;">Upload profile.JPG<br>to R2</div>
         </div>
         <div>
           <p class="about-quote">"Light finds those who chase it. Moments find those who waited."</p>
@@ -609,7 +711,7 @@ return `<!DOCTYPE html>
     const obs=new IntersectionObserver(entries=>{entries.forEach(e=>{if(e.isIntersecting)e.target.classList.add('visible');});},{threshold:.07});
     document.querySelectorAll('.reveal').forEach(el=>obs.observe(el));
     window.addEventListener('scroll',()=>{const p=window.scrollY/(document.body.scrollHeight-window.innerHeight);document.body.classList.toggle('scroll-mid',p>.30);document.body.classList.toggle('scroll-deep',p>.78);},{passive:true});
-    document.addEventListener('contextmenu',e=>{if(['IMG'].includes(e.target.tagName)||e.target.classList.contains('photo-bg')||e.target.classList.contains('insta-bg')||e.target.classList.contains('cc-bg')||e.target.classList.contains('feat-cell')||e.target.classList.contains('hero-bg')){e.preventDefault();}});
+    document.addEventListener('contextmenu',e=>{if(e.target.tagName==='IMG'||e.target.classList.contains('insta-bg')||e.target.classList.contains('cc-bg')||e.target.classList.contains('feat-bg')||e.target.classList.contains('hero-bg'))e.preventDefault();});
     document.addEventListener('dragstart',e=>{if(e.target.tagName==='IMG')e.preventDefault();});
   </script>
 </body>
