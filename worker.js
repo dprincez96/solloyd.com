@@ -258,7 +258,7 @@ function mainPage(R2, COUNTRIES, FEATURED, PORTRAITS, WALLPAPERS) {
       --border:rgba(28,24,20,.10);--border-strong:rgba(28,24,20,.18);
     }
     html{scroll-behavior:smooth;}
-    body{background:linear-gradient(to bottom,#f0f9fc 0%,#d8eef7 6%,#a8d8ec 14%,#87ceeb 22%,#5fb3d4 36%,#3a8db5 50%,#1e5a8a 62%,#0a3a5e 74%,#051f3a 84%,#02060d 93%,#000 100%);background-attachment:fixed;color:var(--charcoal);font-family:'DM Mono',monospace;font-weight:300;overflow-x:hidden;cursor:none;}
+    body{background:linear-gradient(to bottom,#f0f9fc 0%,#d8eef7 4%,#a8d8ec 9%,#87ceeb 15%,#5fb3d4 24%,#3a8db5 35%,#1e5a8a 47%,#0a3a5e 58%,#051f3a 70%,#02060d 83%,#000 100%);background-attachment:fixed;color:var(--charcoal);font-family:'DM Mono',monospace;font-weight:300;overflow-x:hidden;cursor:none;}
 
     /* IMAGE PROTECTION */
     img{-webkit-user-drag:none;-webkit-touch-callout:none;user-select:none;pointer-events:none;}
@@ -338,7 +338,7 @@ function mainPage(R2, COUNTRIES, FEATURED, PORTRAITS, WALLPAPERS) {
 
     /* FEATURED — horizontal carousel, 3:4 ratio */
     #portfolio{padding:72px 0 0;}
-    .feat-carousel{display:flex;overflow-x:auto;scroll-snap-type:x mandatory;gap:14px;padding:36px 52px;scrollbar-width:none;-webkit-overflow-scrolling:touch;}
+    .feat-carousel{display:flex;overflow-x:auto;scroll-snap-type:x mandatory;gap:14px;padding:56px 52px 36px;scrollbar-width:none;-webkit-overflow-scrolling:touch;}
     .feat-carousel::-webkit-scrollbar{display:none;}
     .feat-item{flex:0 0 380px;aspect-ratio:3/4;position:relative;overflow:hidden;cursor:none;scroll-snap-align:start;flex-shrink:0;}
     .feat-bg{position:absolute;inset:0;background-size:cover;background-position:center;transition:transform .7s cubic-bezier(.25,.46,.45,.94);will-change:transform;}
@@ -364,17 +364,17 @@ function mainPage(R2, COUNTRIES, FEATURED, PORTRAITS, WALLPAPERS) {
     body.scroll-mid .articles-placeholder em{color:var(--accent);}
 
     /* WALLPAPERS — horizontal carousel */
-    #wallpapers{padding-bottom:80px;}
+    #wallpapers{padding-bottom:40px;}
     .wp-carousel{display:flex;overflow-x:auto;scroll-snap-type:x mandatory;gap:32px;padding:36px 52px;scrollbar-width:none;-webkit-overflow-scrolling:touch;}
     .wp-carousel::-webkit-scrollbar{display:none;}
     .wp-item{flex-shrink:0;scroll-snap-align:start;}
-    .phone-shell{width:118px;height:208px;background:linear-gradient(145deg,#2a2522,#1a1814);border-radius:24px;padding:8px 5px;box-shadow:0 0 0 1px rgba(255,255,255,.07),inset 0 0 0 1px rgba(255,255,255,.04),0 14px 44px rgba(28,24,20,.35);position:relative;transition:transform .4s;}
+    .phone-shell{width:118px;height:208px;background:#1a1a1a;border-radius:24px;padding:8px 5px;box-shadow:0 18px 48px rgba(0,0,0,.45);position:relative;transition:transform .4s;}
     .wp-item:hover .phone-shell{transform:translateY(-8px) rotate(-1.5deg);}
     .phone-screen{width:100%;height:100%;border-radius:18px;overflow:hidden;}
     .phone-island{position:absolute;top:11px;left:50%;transform:translateX(-50%);width:30px;height:8px;background:#1a1814;border-radius:6px;z-index:5;}
 
     /* PORTRAITS */
-    #portraits{padding-bottom:80px;}
+    #portraits{padding-bottom:40px;}
     .portrait-carousel{display:flex;overflow-x:auto;scroll-snap-type:x mandatory;gap:14px;padding:36px 52px;scrollbar-width:none;-webkit-overflow-scrolling:touch;align-items:flex-start;}
     .portrait-carousel::-webkit-scrollbar{display:none;}
     .portrait-item{flex:0 0 280px;overflow:hidden;cursor:none;scroll-snap-align:start;flex-shrink:0;}
@@ -382,7 +382,7 @@ function mainPage(R2, COUNTRIES, FEATURED, PORTRAITS, WALLPAPERS) {
     .portrait-item:hover img{transform:scale(1.04);}
 
     /* GEARS */
-    #gears{padding-bottom:80px;}
+    #gears{padding-bottom:40px;}
     .gear-intro{font-size:.7rem;color:var(--muted);line-height:2;max-width:580px;margin:0 52px 48px;letter-spacing:.03em;transition:color .6s;}
     .gear-categories{display:grid;grid-template-columns:repeat(3,1fr);gap:14px;margin:0 52px;}
     .gear-cat{background:rgba(247,244,239,.85);backdrop-filter:blur(8px);border:1px solid var(--border);padding:36px 32px;transition:box-shadow .25s,background .6s;}
@@ -475,11 +475,12 @@ function mainPage(R2, COUNTRIES, FEATURED, PORTRAITS, WALLPAPERS) {
       .hero{padding:100px 24px 60px;}
       .stats-band{grid-template-columns:1fr;} .stat{border-right:none;border-bottom:1px solid var(--border);padding:22px 24px;}
       .sec-pad{padding:48px 24px 0;}
-      .feat-carousel{padding:24px 20px;gap:12px;} .feat-item{flex:0 0 75vw;}
+      .feat-carousel{padding:40px 20px 24px;gap:12px;} .feat-item{flex:0 0 75vw;}
       .country-cards{grid-template-columns:1fr 1fr;gap:10px;padding:0 20px;}
       .articles-placeholder{margin:0 20px;padding:40px 24px;}
       .wp-carousel{padding:24px 20px;gap:20px;}
-      .portrait-carousel{padding:24px 20px;gap:12px;} .portrait-item{flex:0 0 65vw;}
+      .portrait-carousel{padding:24px 20px;gap:12px;} .portrait-item{flex:0 0 65vw;aspect-ratio:unset;}
+      .portrait-item img{height:auto;}
       .gear-intro,.gear-categories{margin:0 20px;} .gear-categories{grid-template-columns:1fr;gap:10px;}
       .about-section{margin:0 20px;grid-template-columns:1fr;}
       .about-text{padding:44px 28px 44px 28px;border-right:none;border-bottom:1px solid var(--border);}
@@ -498,10 +499,10 @@ function mainPage(R2, COUNTRIES, FEATURED, PORTRAITS, WALLPAPERS) {
     <a href="#" class="nav-logo">SO LLOYD'S<span>.</span></a>
     <ul class="nav-links">
       <li><a href="#portfolio">Portfolio</a></li>
-      <li><a href="#articles">Articles</a></li>
       <li><a href="#wallpapers">Wallpapers</a></li>
       <li><a href="#portraits">Portraits</a></li>
       <li><a href="#gears">Gears</a></li>
+      <li><a href="#articles">Articles</a></li>
       <li><a href="#about">About</a></li>
       <li><a href="https://instagram.com/being_lloyds" target="_blank">Instagram</a></li>
     </ul>
@@ -511,10 +512,10 @@ function mainPage(R2, COUNTRIES, FEATURED, PORTRAITS, WALLPAPERS) {
 
   <div class="mobile-menu" id="mobileMenu">
     <a href="#portfolio" onclick="closeMobileMenu()">Portfolio</a>
-    <a href="#articles" onclick="closeMobileMenu()">Articles</a>
     <a href="#wallpapers" onclick="closeMobileMenu()">Wallpapers</a>
     <a href="#portraits" onclick="closeMobileMenu()">Portraits</a>
     <a href="#gears" onclick="closeMobileMenu()">Gears</a>
+    <a href="#articles" onclick="closeMobileMenu()">Articles</a>
     <a href="#about" onclick="closeMobileMenu()">About</a>
     <a href="https://instagram.com/being_lloyds" target="_blank" onclick="closeMobileMenu()">Instagram</a>
     <a href="#contact" class="mobile-menu-cta" onclick="closeMobileMenu()">Contact</a>
@@ -575,17 +576,6 @@ function mainPage(R2, COUNTRIES, FEATURED, PORTRAITS, WALLPAPERS) {
     <div style="height:80px;"></div>
   </section>
 
-  <!-- ARTICLES -->
-  <section id="articles">
-    <div class="sec-pad reveal"><div class="section-header"><h2 class="section-title">Field <em>Notes</em></h2></div></div>
-    <div style="height:36px;"></div>
-    <div class="articles-placeholder reveal">
-      <p>Writing in progress — <em>stories, gear reviews, and location guides on the way.</em></p>
-      <p style="margin-top:10px;font-size:.58rem;letter-spacing:.16em;text-transform:uppercase;color:var(--muted-light);">Follow <a href="https://instagram.com/being_lloyds" target="_blank" style="color:var(--accent-dark);text-decoration:none;border-bottom:1px solid currentColor;">@being_lloyds</a> for updates</p>
-    </div>
-    <div style="height:80px;"></div>
-  </section>
-
   <!-- MOBILE WALLPAPERS -->
   <section id="wallpapers">
     <div class="sec-pad reveal"><div class="section-header"><h2 class="section-title">Mobile <em>Wallpapers</em></h2></div></div>
@@ -636,7 +626,18 @@ function mainPage(R2, COUNTRIES, FEATURED, PORTRAITS, WALLPAPERS) {
         </ul>
       </div>
     </div>
-    <div style="height:80px;"></div>
+    <div style="height:40px;"></div>
+  </section>
+
+  <!-- ARTICLES -->
+  <section id="articles">
+    <div class="sec-pad reveal"><div class="section-header"><h2 class="section-title">Field <em>Notes</em></h2></div></div>
+    <div style="height:36px;"></div>
+    <div class="articles-placeholder reveal">
+      <p>Writing in progress — <em>stories, gear reviews, and location guides on the way.</em></p>
+      <p style="margin-top:10px;font-size:.58rem;letter-spacing:.16em;text-transform:uppercase;color:var(--muted-light);">Follow <a href="https://instagram.com/being_lloyds" target="_blank" style="color:var(--accent-dark);text-decoration:none;border-bottom:1px solid currentColor;">@being_lloyds</a> for updates</p>
+    </div>
+    <div style="height:60px;"></div>
   </section>
 
   <!-- ABOUT -->
@@ -697,9 +698,9 @@ function mainPage(R2, COUNTRIES, FEATURED, PORTRAITS, WALLPAPERS) {
   <footer>
     <div class="footer-logo">SO LLOYD'S<span>.</span></div>
     <ul class="footer-links">
-      <li><a href="#portfolio">Portfolio</a></li><li><a href="#articles">Articles</a></li>
-      <li><a href="#wallpapers">Wallpapers</a></li><li><a href="#portraits">Portraits</a></li>
-      <li><a href="#gears">Gears</a></li><li><a href="#about">About</a></li>
+      <li><a href="#portfolio">Portfolio</a></li><li><a href="#wallpapers">Wallpapers</a></li>
+      <li><a href="#portraits">Portraits</a></li><li><a href="#gears">Gears</a></li>
+      <li><a href="#articles">Articles</a></li><li><a href="#about">About</a></li>
       <li><a href="#contact">Contact</a></li>
       <li><a href="https://instagram.com/being_lloyds" target="_blank">Instagram</a></li>
     </ul>
