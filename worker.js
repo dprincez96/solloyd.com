@@ -53,8 +53,8 @@ export default {
       {file:'singapore-moon-1.JPG',    credit:'Featured by Sony Alpha HQ'},
     ];
 
-    const PORTRAITS = [...range('Portraits','JPG',15),...range('Portraits','jpg',15),...range('portrait','JPG',15),...range('portrait','jpg',15)];
-    const WALLPAPERS = [...range('phone-wallpaper','JPG',12),...range('phone-wallpaper','jpg',12)];
+    const PORTRAITS = [...range('Portraits','JPG',15),...range('Portraits','jpg',15)];
+    const WALLPAPERS = [...range('phone-wallpaper','JPG',8),...range('phone-wallpaper','jpg',8)];
 
     // ── Routing ──────────────────────────────────────────────────────────
     if (path.startsWith('/portfolio')) {
@@ -222,15 +222,20 @@ function mainPage(R2, COUNTRIES, FEATURED, PORTRAITS, WALLPAPERS) {
 
   const portraitItems = PORTRAITS.map(f=>`
     <div class="portrait-item">
-      <div class="portrait-bg" style="background-image:url('${R2}/${f}');"
-           onerror-placeholder="${R2}/${f}"></div>
+      <img src="${R2}/${f}" loading="lazy" decoding="async"
+           onerror="this.closest('.portrait-item').style.display='none'"
+           draggable="false"/>
     </div>`).join('');
 
   const wallpaperItems = WALLPAPERS.map(f=>`
-    <div class="wp-item" data-wp-src="${R2}/${f}">
+    <div class="wp-item">
       <div class="phone-shell">
         <div class="phone-island"></div>
-        <div class="phone-screen" style="background-image:url('${R2}/${f}');background-size:cover;background-position:center;"></div>
+        <div class="phone-screen">
+          <img src="${R2}/${f}" loading="lazy" decoding="async"
+               onerror="this.closest('.wp-item').style.display='none'"
+               draggable="false" style="width:100%;height:100%;object-fit:cover;display:block;pointer-events:none;"/>
+        </div>
       </div>
     </div>`).join('');
 
@@ -364,7 +369,7 @@ function mainPage(R2, COUNTRIES, FEATURED, PORTRAITS, WALLPAPERS) {
     .wp-item{flex-shrink:0;scroll-snap-align:start;}
     .phone-shell{width:118px;height:208px;background:linear-gradient(145deg,#2a2522,#1a1814);border-radius:24px;padding:8px 5px;box-shadow:0 0 0 1px rgba(255,255,255,.07),inset 0 0 0 1px rgba(255,255,255,.04),0 14px 44px rgba(28,24,20,.35);position:relative;transition:transform .4s;}
     .wp-item:hover .phone-shell{transform:translateY(-8px) rotate(-1.5deg);}
-    .phone-screen{width:100%;height:100%;border-radius:18px;overflow:hidden;background-size:cover;background-position:center;}
+    .phone-screen{width:100%;height:100%;border-radius:18px;overflow:hidden;}
     .phone-island{position:absolute;top:11px;left:50%;transform:translateX(-50%);width:30px;height:8px;background:#1a1814;border-radius:6px;z-index:5;}
 
     /* PORTRAITS */
@@ -372,8 +377,8 @@ function mainPage(R2, COUNTRIES, FEATURED, PORTRAITS, WALLPAPERS) {
     .portrait-carousel{display:flex;overflow-x:auto;scroll-snap-type:x mandatory;gap:14px;padding:36px 52px;scrollbar-width:none;-webkit-overflow-scrolling:touch;}
     .portrait-carousel::-webkit-scrollbar{display:none;}
     .portrait-item{flex:0 0 300px;aspect-ratio:3/4;position:relative;overflow:hidden;cursor:none;scroll-snap-align:start;flex-shrink:0;}
-    .portrait-bg{position:absolute;inset:0;background-size:cover;background-position:center;transition:transform .7s cubic-bezier(.25,.46,.45,.94);will-change:transform;}
-    .portrait-item:hover .portrait-bg{transform:scale(1.04);}
+    .portrait-item img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;display:block;transition:transform .7s cubic-bezier(.25,.46,.45,.94);}
+    .portrait-item:hover img{transform:scale(1.04);}
 
     /* GEARS */
     #gears{padding-bottom:80px;}
@@ -716,19 +721,7 @@ function mainPage(R2, COUNTRIES, FEATURED, PORTRAITS, WALLPAPERS) {
     document.querySelectorAll('.reveal').forEach(el=>obs.observe(el));
     window.addEventListener('scroll',()=>{const p=window.scrollY/(document.body.scrollHeight-window.innerHeight);document.body.classList.toggle('scroll-mid',p>.30);document.body.classList.toggle('scroll-deep',p>.78);},{passive:true});
 
-    // Portrait carousel — hide items with missing images
-    document.querySelectorAll('.portrait-item .portrait-bg').forEach(el=>{
-      const src = el.getAttribute('onerror-placeholder');
-      const img = new Image();
-      img.onerror = () => { el.closest('.portrait-item').style.display='none'; };
-      img.src = src;
-    });
-    // Wallpaper carousel — hide items with missing images
-    document.querySelectorAll('.wp-item[data-wp-src]').forEach(el=>{
-      const img = new Image();
-      img.onerror = () => { el.style.display='none'; };
-      img.src = el.getAttribute('data-wp-src');
-    });
+    // Portrait & wallpaper onerror is handled directly on <img> tags
 
     // Image protection
     document.addEventListener('contextmenu',e=>e.preventDefault());
