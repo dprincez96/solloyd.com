@@ -205,13 +205,13 @@ function mainPage(R2, COUNTRIES, FEATURED, PORTRAITS, WALLPAPERS) {
 
   const featItems = FEATURED.map(f=>`
     <div class="feat-item">
-      <div class="feat-bg" style="background-image:url('${R2}/${f.file}');"></div>
+      <div class="feat-bg lazy-bg" data-bg="${R2}/${f.file}"></div>
       <div class="feat-credit">${f.credit}</div>
     </div>`).join('');
 
   const countryCards = COUNTRIES.map(c=>`
     <a href="/portfolio/${c.slug}" class="country-card reveal">
-      <div class="cc-bg" style="background-image:url('${R2}/${c.cover}');"></div>
+      <div class="cc-bg lazy-bg" data-bg="${R2}/${c.cover}"></div>
       <div class="cc-overlay">
         <div class="cc-flag">${c.flag}</div>
         <h3 class="cc-name">${c.name}</h3>
@@ -246,6 +246,7 @@ function mainPage(R2, COUNTRIES, FEATURED, PORTRAITS, WALLPAPERS) {
   <meta name="viewport" content="width=device-width,initial-scale=1.0"/>
   <title>SO LLOYD's — Travel, Sun/Moon & Portraits</title>
   <link rel="preconnect" href="https://fonts.googleapis.com"/>
+  <link rel="preconnect" href="${R2}" crossorigin/>
   <link rel="preload" as="image" href="${R2}/japan-mtfuji-1.JPG"/>
   <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300;1,400&family=DM+Mono:wght@300;400&family=Bebas+Neue&display=swap" rel="stylesheet"/>
   <style>
@@ -374,10 +375,10 @@ function mainPage(R2, COUNTRIES, FEATURED, PORTRAITS, WALLPAPERS) {
 
     /* PORTRAITS */
     #portraits{padding-bottom:80px;}
-    .portrait-carousel{display:flex;overflow-x:auto;scroll-snap-type:x mandatory;gap:14px;padding:36px 52px;scrollbar-width:none;-webkit-overflow-scrolling:touch;}
+    .portrait-carousel{display:flex;overflow-x:auto;scroll-snap-type:x mandatory;gap:14px;padding:36px 52px;scrollbar-width:none;-webkit-overflow-scrolling:touch;align-items:flex-start;}
     .portrait-carousel::-webkit-scrollbar{display:none;}
-    .portrait-item{flex:0 0 300px;aspect-ratio:3/4;position:relative;overflow:hidden;cursor:none;scroll-snap-align:start;flex-shrink:0;}
-    .portrait-item img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;display:block;transition:transform .7s cubic-bezier(.25,.46,.45,.94);}
+    .portrait-item{flex:0 0 280px;overflow:hidden;cursor:none;scroll-snap-align:start;flex-shrink:0;}
+    .portrait-item img{width:100%;height:auto;display:block;transition:transform .7s cubic-bezier(.25,.46,.45,.94);}
     .portrait-item:hover img{transform:scale(1.04);}
 
     /* GEARS */
@@ -679,12 +680,12 @@ function mainPage(R2, COUNTRIES, FEATURED, PORTRAITS, WALLPAPERS) {
     <div class="insta-section">
       <div class="section-header reveal"><h2 class="section-title">Follow the <em>Journey</em></h2></div>
       <div class="insta-grid">
-        <div class="insta-cell"><div class="insta-bg" style="background-image:url('${R2}/singapore-moon-3.JPG');"></div><div class="insta-overlay">＋</div></div>
-        <div class="insta-cell"><div class="insta-bg" style="background-image:url('${R2}/japan-kyoto-1.JPG');"></div><div class="insta-overlay">＋</div></div>
-        <div class="insta-cell"><div class="insta-bg" style="background-image:url('${R2}/malaysia-penang-1.JPG');"></div><div class="insta-overlay">＋</div></div>
-        <div class="insta-cell"><div class="insta-bg" style="background-image:url('${R2}/hongkong-4.JPG');"></div><div class="insta-overlay">＋</div></div>
-        <div class="insta-cell"><div class="insta-bg" style="background-image:url('${R2}/thailand-bangkok-3.JPG');"></div><div class="insta-overlay">＋</div></div>
-        <div class="insta-cell"><div class="insta-bg" style="background-image:url('${R2}/vietnam-sapa-2.JPG');"></div><div class="insta-overlay">＋</div></div>
+        <div class="insta-cell"><div class="insta-bg lazy-bg" data-bg="${R2}/singapore-moon-3.JPG"></div><div class="insta-overlay">＋</div></div>
+        <div class="insta-cell"><div class="insta-bg lazy-bg" data-bg="${R2}/japan-kyoto-1.JPG"></div><div class="insta-overlay">＋</div></div>
+        <div class="insta-cell"><div class="insta-bg lazy-bg" data-bg="${R2}/malaysia-penang-1.JPG"></div><div class="insta-overlay">＋</div></div>
+        <div class="insta-cell"><div class="insta-bg lazy-bg" data-bg="${R2}/hongkong-4.JPG"></div><div class="insta-overlay">＋</div></div>
+        <div class="insta-cell"><div class="insta-bg lazy-bg" data-bg="${R2}/thailand-bangkok-3.JPG"></div><div class="insta-overlay">＋</div></div>
+        <div class="insta-cell"><div class="insta-bg lazy-bg" data-bg="${R2}/vietnam-sapa-2.JPG"></div><div class="insta-overlay">＋</div></div>
       </div>
       <div class="insta-cta">
         <p class="insta-handle"><a href="https://instagram.com/being_lloyds" target="_blank">@being_lloyds</a></p>
@@ -720,6 +721,12 @@ function mainPage(R2, COUNTRIES, FEATURED, PORTRAITS, WALLPAPERS) {
     const obs=new IntersectionObserver(entries=>{entries.forEach(e=>{if(e.isIntersecting)e.target.classList.add('visible');});},{threshold:.07});
     document.querySelectorAll('.reveal').forEach(el=>obs.observe(el));
     window.addEventListener('scroll',()=>{const p=window.scrollY/(document.body.scrollHeight-window.innerHeight);document.body.classList.toggle('scroll-mid',p>.30);document.body.classList.toggle('scroll-deep',p>.78);},{passive:true});
+
+    // Lazy-load background images as they scroll into view
+    const bgObs=new IntersectionObserver(entries=>{
+      entries.forEach(e=>{if(e.isIntersecting){const b=e.target.dataset.bg;if(b)e.target.style.backgroundImage=`url('${b}')`;bgObs.unobserve(e.target);}});
+    },{rootMargin:'300px'});
+    document.querySelectorAll('.lazy-bg').forEach(el=>bgObs.observe(el));
 
     // Portrait & wallpaper onerror is handled directly on <img> tags
 
